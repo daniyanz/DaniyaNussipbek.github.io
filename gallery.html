@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Engineering gallery for Daniya Nussipbek, featuring prototypes, robotics, manufacturing, and software projects.">
+  <title>Gallery | Daniya Nussipbek</title>
+  <style>
+    :root {
+      --background: #e4d8c4;
+      --surface: #d6c1ae;
+      --ink: #2b1e1b;
+      --muted: #6f5852;
+      --deep-red: #971f16;
+      --line: rgba(111, 88, 82, .25);
+      --cream: #f4ead9;
+      --frame: #3b2b27;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(244,234,217,.72), transparent 28%),
+        linear-gradient(rgba(111,88,82,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,88,82,.08) 1px, transparent 1px),
+        var(--background);
+      background-size: auto, 68px 68px, 68px 68px, auto;
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page-shell {
+      position: relative;
+      width: min(1420px, calc(100% - 96px));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .back-link,
+    .section-code,
+    .eyebrow,
+    .gallery-caption,
+    .footer {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.28);
+      font-size: 9px;
+      font-weight: 700;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .back-link:hover,
+    .back-link:focus-visible {
+      color: var(--cream);
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+    .section-code { color: var(--muted); font-size: 9px; }
+
+    .page-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 430px);
+      gap: 48px;
+      align-items: end;
+      padding: 74px 0 54px;
+    }
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--deep-red);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      font-size: clamp(72px, 10vw, 142px);
+      line-height: .82;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .header-copy {
+      margin: 0;
+      padding-top: 18px;
+      border-top: 3px solid var(--deep-red);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 22px;
+      padding: 0 0 88px;
+    }
+    .gallery-card {
+      position: relative;
+      grid-column: span 6;
+      height: 410px;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(43,30,27,.42);
+      background: var(--frame);
+      box-shadow: 0 18px 44px rgba(43,30,27,.16);
+    }
+    .gallery-card.wide {
+      grid-column: span 12;
+      height: 610px;
+    }
+    .gallery-card.large {
+      grid-column: span 7;
+      height: 520px;
+    }
+    .gallery-card.small {
+      grid-column: span 5;
+      height: 520px;
+    }
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .55s ease, filter .55s ease;
+    }
+    .gallery-card.contain img {
+      object-fit: contain;
+      background: #f3eee6;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.018);
+      filter: contrast(1.02);
+    }
+    .gallery-card.contain:hover img { transform: scale(1.01); }
+    .gallery-caption {
+      position: absolute;
+      z-index: 2;
+      left: 22px;
+      right: auto;
+      bottom: 20px;
+      max-width: calc(100% - 44px);
+      padding: 10px 13px;
+      color: var(--cream);
+      background: rgba(43,30,27,.78);
+      backdrop-filter: blur(7px);
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    .footer {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 8px;
+    }
+    .footer a {
+      color: var(--ink);
+      border-bottom: 1px solid var(--deep-red);
+    }
+
+    @media (max-width: 980px) {
+      .page-shell { width: min(100% - 48px, 900px); }
+      .page-header { grid-template-columns: 1fr; gap: 30px; }
+      .header-copy { max-width: 620px; }
+      .gallery-card,
+      .gallery-card.large,
+      .gallery-card.small { grid-column: span 6; height: 380px; }
+      .gallery-card.wide { height: 500px; }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell { width: calc(100% - 36px); }
+      .topbar { min-height: 68px; }
+      .page-header { padding: 54px 0 40px; }
+      h1 { font-size: clamp(66px, 23vw, 108px); }
+      .gallery-grid { gap: 16px; padding-bottom: 60px; }
+      .gallery-card,
+      .gallery-card.wide,
+      .gallery-card.large,
+        .gallery-card.small {
+        grid-column: 1 / -1;
+        height: 340px;
+      }
+      .gallery-card.contain { height: 420px; }
+      .gallery-caption { left: 14px; bottom: 14px; max-width: calc(100% - 28px); }
+      .footer { padding: 24px 0; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .gallery-card img { transition: none; }
+      .gallery-card:hover img { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Home</a>
+      <span class="section-code">03 / Gallery</span>
+    </header>
+
+    <section class="page-header" aria-labelledby="gallery-title">
+      <div>
+        <p class="eyebrow">Engineering in practice</p>
+        <h1 id="gallery-title">Gallery</h1>
+      </div>
+      <p class="header-copy">A visual record of prototypes, fabrication, robotics, product analysis, software projects, and the teams behind the work.</p>
+    </section>
+
+    <section class="gallery-grid" aria-label="Engineering project photographs">
+      <figure class="gallery-card wide">
+        <img src="jp-snake-base-station.png" alt="Completed J/P Snake Robot Base Station">
+        <figcaption class="gallery-caption">J/P Snake Robot Base Station / Completed Assembly</figcaption>
+      </figure>
+
+      <figure class="gallery-card large">
+        <img src="baja-off-road-team.jpg" alt="Off-Road Illini team assembling the BAJA vehicle">
+        <figcaption class="gallery-caption">Off-Road Illini / Vehicle Assembly</figcaption>
+      </figure>
+
+      <figure class="gallery-card small">
+        <img src="nutricycle-team-award.png" alt="NutriCycle team receiving a startup competition award">
+        <figcaption class="gallery-caption">NutriCycle / Startup Competition Award</figcaption>
+      </figure>
+
+      <figure class="gallery-card wide">
+        <img src="automatic-pill-box-composite.png" alt="Automatic pill box prototype and CAD assembly">
+        <figcaption class="gallery-caption">Automatic Pill Box / Physical Prototype &amp; CAD Assembly</figcaption>
+      </figure>
+
+      <figure class="gallery-card contain">
+        <img src="electric-kettle-original.png" alt="Original electric kettle design">
+        <figcaption class="gallery-caption">Electric Kettle / Original Product</figcaption>
+      </figure>
+
+      <figure class="gallery-card contain">
+        <img src="electric-kettle-bird-feeder.png" alt="Electric kettle repurposed into a bird feeder">
+        <figcaption class="gallery-caption">Electric Kettle / Repurposed Bird Feeder</figcaption>
+      </figure>
+
+      <figure class="gallery-card wide">
+        <img src="handheld-vacuum-teardown.png" alt="Disassembled handheld vacuum and its components">
+        <figcaption class="gallery-caption">Handheld Vacuum / Manufacturing Teardown</figcaption>
+      </figure>
+
+      <figure class="gallery-card">
+        <img src="epic-tank-duel.png" alt="Epic Tank Duel game start screen">
+        <figcaption class="gallery-caption">Epic Tank Duel / Python Game</figcaption>
+      </figure>
+
+      <figure class="gallery-card contain">
+        <img src="tetris.png" alt="Functional Tetris game board">
+        <figcaption class="gallery-caption">Tetris / Python Game</figcaption>
+      </figure>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Daniya Nussipbek</span>
+      <span>Designed &amp; generated in 2026 with OpenAI Codex (GPT-5) · Palette inspiration: <a href="https://coolors.co/" target="_blank" rel="noreferrer">Coolors</a></span>
+    </footer>
+  </main>
+</body>
+</html>

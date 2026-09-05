@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Awards and engineering honors earned by Daniya Nussipbek.">
+  <title>Awards &amp; Honors | Daniya Nussipbek</title>
+  <style>
+    :root {
+      --background: #e4d8c4;
+      --surface: #d6c1ae;
+      --cream: #f4ead9;
+      --ink: #2b1e1b;
+      --muted: #6f5852;
+      --deep-red: #971f16;
+      --accent: #b14c47;
+      --line: rgba(111, 88, 82, .27);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 84% 9%, rgba(177,76,71,.13), transparent 23%),
+        radial-gradient(circle at 12% 42%, rgba(244,234,217,.72), transparent 31%),
+        linear-gradient(rgba(111,88,82,.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,88,82,.075) 1px, transparent 1px),
+        var(--background);
+      background-size: auto, auto, 68px 68px, 68px 68px, auto;
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page-shell {
+      width: min(1420px, calc(100% - 96px));
+      margin-inline: auto;
+    }
+    .mono,
+    .back-link,
+    .page-code,
+    .eyebrow,
+    .award-index,
+    .award-meta,
+    .award-label,
+    .footer {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.28);
+      font-size: 9px;
+      font-weight: 700;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .back-link:hover,
+    .back-link:focus-visible {
+      color: var(--cream);
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+    .page-code { color: var(--muted); font-size: 9px; }
+
+    .page-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      gap: 70px;
+      align-items: end;
+      padding: 78px 0 66px;
+    }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--deep-red);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      font-size: clamp(66px, 9.5vw, 136px);
+      line-height: .82;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .header-copy {
+      margin: 0;
+      padding-top: 20px;
+      border-top: 3px solid var(--deep-red);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .awards-list {
+      display: grid;
+      gap: 26px;
+      padding-bottom: 92px;
+    }
+    .award-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.35);
+      box-shadow: 0 18px 46px rgba(43,30,27,.09);
+    }
+    .award-card.featured {
+      min-height: 380px;
+      color: var(--ink);
+      background: rgba(244,234,217,.35);
+      border-color: var(--line);
+    }
+    .feature-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 42px;
+      min-height: 380px;
+      padding: clamp(40px, 6vw, 74px);
+    }
+    .award-label {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--deep-red);
+      font-size: 9px;
+      font-weight: 700;
+    }
+    .award-title {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(38px, 5vw, 72px);
+      font-weight: 700;
+      line-height: .98;
+      letter-spacing: -.015em;
+      text-transform: uppercase;
+    }
+    .award-description {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .award-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      margin-top: 24px;
+      color: var(--ink);
+      border-bottom: 1px solid var(--deep-red);
+      font: 700 9px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .honors-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+    }
+    .honor-card {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(32px, 4.5vw, 58px);
+    }
+    .award-index {
+      color: var(--deep-red);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .honor-title {
+      max-width: 540px;
+      margin: 44px 0 18px;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(30px, 3.8vw, 50px);
+      line-height: 1.02;
+      text-transform: uppercase;
+    }
+    .honor-type {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .honor-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 50px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .ranking {
+      color: var(--deep-red);
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .honor-location {
+      color: var(--muted);
+      font: 9px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .footer {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 8px;
+    }
+    .footer a { color: var(--ink); border-bottom: 1px solid var(--deep-red); }
+
+    @media (max-width: 920px) {
+      .page-shell { width: min(100% - 48px, 860px); }
+      .page-header { grid-template-columns: 1fr; gap: 34px; }
+      .header-copy { max-width: 620px; }
+      .honors-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .page-shell { width: calc(100% - 36px); }
+      .topbar { min-height: 68px; }
+      .page-header { padding: 54px 0 42px; }
+      h1 { font-size: clamp(58px, 19vw, 92px); }
+      .feature-content { padding: 34px 26px; }
+      .award-title { font-size: 38px; }
+      .honor-card { min-height: 300px; padding: 30px 24px; }
+      .honor-footer { align-items: flex-start; flex-direction: column; }
+      .honor-location { text-align: left; }
+      .footer { padding: 24px 0; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Home</a>
+      <span class="page-code">04 / Awards</span>
+    </header>
+
+    <section class="page-header" aria-labelledby="awards-title">
+      <div>
+        <p class="eyebrow">Recognition &amp; distinction</p>
+        <h1 id="awards-title">Awards<br>&amp; Honors</h1>
+      </div>
+      <p class="header-copy">Recognition for engineering innovation and academic achievement across robotics and mechanical engineering.</p>
+    </section>
+
+    <section class="awards-list" aria-label="Awards and honors">
+      <article class="award-card featured">
+        <div class="feature-content">
+          <div>
+            <span class="award-label">Featured Award / 2026</span>
+            <h2 class="award-title">Division 1 AMIGA Innovation Award</h2>
+            <p class="award-description">Awarded in the 2026 Farm Robotics Challenge for the autonomous orchard fire blight detection robot developed by the Fireblighters team. My work included mechanical integration, CAD-to-URDF conversion for ROS 2 and Gazebo simulation, and an electromechanical spraying mechanism.</p>
+            <a class="project-link" href="projects.html">View the project <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="award-meta">
+            <span>Farm Robotics Challenge</span>
+            <span>Sponsored by Bonsai</span>
+            <span>2026</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="honors-grid">
+        <article class="award-card honor-card">
+          <div>
+            <span class="award-index">02 / Academic Honor</span>
+            <h2 class="honor-title">Tau Beta Pi</h2>
+            <p class="honor-type">Engineering Honors Society</p>
+          </div>
+          <div class="honor-footer">
+            <span class="ranking">Top 1/8</span>
+            <span class="honor-location">Urbana, Illinois<br>2025</span>
+          </div>
+        </article>
+
+        <article class="award-card honor-card">
+          <div>
+            <span class="award-index">03 / Academic Honor</span>
+            <h2 class="honor-title">Pi Tau Sigma</h2>
+            <p class="honor-type">Mechanical Engineering Honors Society</p>
+          </div>
+          <div class="honor-footer">
+            <span class="ranking">Top 1/4</span>
+            <span class="honor-location">Urbana, Illinois<br>2025</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Daniya Nussipbek</span>
+      <span>Designed &amp; generated in 2026 with OpenAI Codex (GPT-5) · Palette inspiration: <a href="https://coolors.co/" target="_blank" rel="noreferrer">Coolors</a></span>
+    </footer>
+  </main>
+</body>
+</html>

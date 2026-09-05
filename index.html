@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mechanical engineering portfolio of Daniya Nussipbek.">
+  <title>Daniya Nussipbek | Mechanical Engineer</title>
+  <style>
+    :root {
+      --ink: #2b1e1b;
+      --muted: #6f5852;
+      --dim: #81271b;
+      --line: rgba(111, 88, 82, 0.38);
+      --accent: #b14c47;
+      --accent-deep: #81271b;
+      --background: #c9b5a7;
+      --frame-line: #6f5852;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: var(--background);
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .site-shell {
+      height: 100svh;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 72px minmax(0, 1fr) 92px 48px;
+      background:
+        linear-gradient(110deg, rgba(228,216,196,.94), rgba(200,178,164,.84) 48%, rgba(163,139,129,.90)),
+        radial-gradient(circle at 72% 28%, #e4d8c4, #a38b81 58%);
+    }
+
+    .ambient-grid {
+      position: absolute;
+      z-index: -3;
+      inset: -55%;
+      opacity: .38;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 64px 64px;
+      transform: rotate(-8deg);
+      animation: drift-grid 24s linear infinite;
+      mask-image: radial-gradient(circle at 64% 45%, black, transparent 58%);
+    }
+
+    .orbital {
+      position: absolute;
+      z-index: -2;
+      border: 1px solid rgba(129,39,27,.46);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .orbital::before,
+    .orbital::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+    .orbital::before {
+      inset: 12%;
+      border: 1px dashed rgba(129,39,27,.32);
+    }
+    .orbital::after {
+      width: 9px;
+      height: 9px;
+      top: 13%;
+      left: 18%;
+      background: var(--accent);
+      box-shadow: 0 0 24px rgba(177,76,71,.9);
+    }
+    .orbital-one {
+      width: min(62vw, 840px);
+      aspect-ratio: 1;
+      right: -18vw;
+      top: -30vw;
+      animation: orbit 32s linear infinite;
+    }
+    .orbital-two {
+      width: 340px;
+      aspect-ratio: 1;
+      left: 32%;
+      bottom: -265px;
+      opacity: .72;
+      animation: orbit-reverse 25s linear infinite;
+    }
+
+    .topbar,
+    .hero,
+    .section-nav,
+    .site-footer {
+      width: min(1420px, calc(100% - 96px));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .contact-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: rgba(228,216,196,.28);
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .contact-link svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+    .contact-link:hover,
+    .contact-link:focus-visible {
+      color: var(--cream);
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+    .status {
+      color: var(--muted);
+      font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .status i {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(177,76,71,.8);
+    }
+
+    .hero {
+      min-height: 0;
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(360px, .9fr) minmax(500px, 1.1fr);
+      align-items: end;
+      gap: clamp(50px, 8vw, 140px);
+      padding: 28px 4vw;
+    }
+
+    .portrait-column {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portrait-frame {
+      position: relative;
+      width: min(100%, 430px, calc((100svh - 268px) * .75));
+      aspect-ratio: 1086 / 1448;
+    }
+    .portrait-cutout {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 0 0 50% 50% / 0 0 30% 30%;
+      background:
+        radial-gradient(ellipse at 50% 35%, #a38b81 0 20%, transparent 20.5%),
+        radial-gradient(ellipse at 50% 104%, #6f5852 0 48%, transparent 48.5%);
+      filter: drop-shadow(18px 12px 36px rgba(43,30,27,.40));
+    }
+    .portrait-cutout::after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      pointer-events: none;
+      border: 1px solid var(--frame-line);
+      border-radius: inherit;
+    }
+    .portrait-cutout img {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+    }
+    .portrait-placeholder {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      width: 210px;
+      transform: translate(-50%, -30%);
+      text-align: center;
+      color: #e4d8c4;
+    }
+    .portrait-placeholder strong {
+      display: block;
+      margin: 12px 0 9px;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: 25px;
+      line-height: .95;
+      text-transform: uppercase;
+    }
+    .portrait-placeholder small { font-size: 10px; color: #e4d8c4; opacity: .76; }
+    .placeholder-code,
+    .eyebrow,
+    .intro-label,
+    .site-footer {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .placeholder-code { color: #e4d8c4; font-size: 9px; }
+    .hero-copy { align-self: center; padding-top: 20px; }
+    .eyebrow { margin: 0 0 20px; color: var(--muted); font-size: 10px; }
+    .eyebrow span { color: var(--ink); margin-right: 17px; }
+    h1 {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      font-size: clamp(78px, 8.2vw, 132px);
+      font-weight: 700;
+      line-height: .88;
+      letter-spacing: -.018em;
+      text-transform: uppercase;
+    }
+    .role {
+      margin: 30px 0 0;
+      color: var(--ink);
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(24px, 2.4vw, 38px);
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .intro-block { margin-top: 42px; max-width: 600px; }
+    .intro-label { display: block; margin-bottom: 10px; color: var(--dim); font-size: 8px; }
+    .intro-line { height: 2px; background: linear-gradient(90deg, var(--accent), var(--line) 28%, transparent); }
+    .intro-placeholder {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    .section-nav {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .section-link {
+      min-height: 0;
+      height: 92px;
+      padding: 18px 18px 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto 1fr;
+      border-right: 1px solid var(--line);
+      transition: background .25s ease, color .25s ease;
+    }
+    .section-link:first-child { border-left: 1px solid var(--line); }
+    .section-link:hover,
+    .section-link:focus-visible {
+      background: var(--ink);
+      color: #e4d8c4;
+      outline: none;
+    }
+    .section-link:hover .section-index,
+    .section-link:focus-visible .section-index { color: #e4d8c4; }
+    .section-index { color: var(--dim); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .section-arrow { font-size: 16px; }
+    .section-label {
+      align-self: end;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(14px, 1.2vw, 18px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .site-footer {
+      min-height: 0;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 8px;
+    }
+    .site-footer a { color: var(--ink); border-bottom: 1px solid var(--accent); }
+
+    @keyframes drift-grid { to { transform: rotate(-8deg) translate3d(64px,64px,0); } }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes orbit-reverse { to { transform: rotate(-360deg); } }
+
+    @media (min-width: 701px) and (max-height: 760px) {
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .site-shell {
+        height: auto;
+        min-height: 100svh;
+        grid-template-rows: 72px auto 92px 48px;
+      }
+      .hero {
+        height: auto;
+        min-height: 560px;
+      }
+      .portrait-frame {
+        width: min(100%, 430px);
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .topbar, .hero, .section-nav, .site-footer { width: min(100% - 48px, 900px); }
+      .hero { grid-template-columns: .85fr 1.15fr; gap: 36px; padding-inline: 0; }
+      h1 { font-size: clamp(62px, 9vw, 92px); }
+    }
+
+    @media (max-width: 700px) {
+      body { overflow: auto; }
+      .site-shell { height: auto; min-height: 100svh; display: block; }
+      .topbar, .hero, .section-nav, .site-footer { width: calc(100% - 36px); }
+      .topbar { height: 76px; }
+      .contact-link { width: 30px; height: 30px; }
+      .status { font-size: 8px; letter-spacing: .08em; }
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 38px; padding: 42px 0 46px; }
+      .hero-copy { grid-row: 1; }
+      h1 { font-size: clamp(61px, 20vw, 98px); }
+      .role { margin-top: 22px; }
+      .intro-block { margin-top: 30px; }
+      .portrait-column { grid-row: 2; }
+      .portrait-frame { width: min(100%, 430px); margin-inline: auto; }
+      .section-nav { grid-template-columns: repeat(2, 1fr); }
+      .section-link { min-height: 106px; height: auto; }
+      .section-link:nth-child(3) { border-right: 1px solid var(--line); }
+      .section-link:nth-child(even) { border-right: 0; }
+      .site-footer { padding: 24px 0; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-grid, .orbital { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="site-shell">
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="orbital orbital-one" aria-hidden="true"></div>
+    <div class="orbital orbital-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <nav class="contact-links" aria-label="Contact links">
+        <a class="contact-link" href="https://www.linkedin.com/in/ns-daniya/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.34 3.6a2.07 2.07 0 1 1 0 4.14 2.07 2.07 0 0 1 0-4.14ZM3.55 9.31h3.58V20.8H3.55V9.31Zm5.82 0h3.43v1.57h.05c.48-.91 1.65-1.87 3.4-1.87 3.63 0 4.3 2.39 4.3 5.5v6.29h-3.57v-5.57c0-1.33-.03-3.04-1.86-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.37V9.31Z"/></svg>
+        </a>
+        <a class="contact-link" href="mailto:ns.daniya@gmail.com" aria-label="Email ns.daniya@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3V5Zm2 2v.48l7 4.5 7-4.5V7H5Zm14 10V9.85l-7 4.5-7-4.5V17h14Z"/></svg>
+        </a>
+      </nav>
+      <span class="status"><i></i> Open to opportunities</span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="portrait-column">
+        <div class="portrait-frame">
+          <div class="portrait-cutout">
+            <div class="portrait-placeholder">
+              <span class="placeholder-code">IMG_01</span>
+              <strong>Your cut-out<br>headshot</strong>
+              <small>Save your image as Headshot.png</small>
+            </div>
+            <img src="Headshot.png" alt="Portrait of Daniya Nussipbek" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <p class="eyebrow"><span>01</span> Design · Analysis · Manufacturing</p>
+        <h1 id="hero-title">Daniya<br>Nussipbek</h1>
+        <p class="role">Mechanical Engineer</p>
+        <div class="intro-block">
+          <span class="intro-label">Brief introduction</span>
+          <div class="intro-line" aria-hidden="true"></div>
+          <p class="intro-placeholder">I am a junior Mechanical Engineering student at Carnegie Mellon University with experience in mechanical design, prototyping, robotics, and electromechanical systems. Through research and engineering projects, I have worked with CAD, electronics, and system integration to develop and test functional hardware. I am particularly interested in roles that combine hands-on engineering with analytical problem solving and product development.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="section-nav" aria-label="Portfolio sections">
+      <a class="section-link" href="education.html"><span class="section-index">01</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">Education</span></a>
+      <a class="section-link" href="projects.html"><span class="section-index">02</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">Projects</span></a>
+      <a class="section-link" href="gallery.html"><span class="section-index">03</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">Gallery</span></a>
+      <a class="section-link" href="awards.html"><span class="section-index">04</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">Awards</span></a>
+      <a class="section-link" href="service.html"><span class="section-index">05</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">Service</span></a>
+      <a class="section-link" href="more-about-me.html"><span class="section-index">06</span><span class="section-arrow" aria-hidden="true">↗</span><span class="section-label">More About Me</span></a>
+    </nav>
+
+    <footer class="site-footer">
+      <span>© 2026 Daniya Nussipbek</span>
+      <span>Designed &amp; generated in 2026 with OpenAI Codex (GPT-5) · Palette inspiration: <a href="https://coolors.co/" target="_blank" rel="noreferrer">Coolors</a></span>
+    </footer>
+  </main>
+</body>
+</html>

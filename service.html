@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Community service, STEM outreach, philanthropy, and volunteer leadership by Daniya Nussipbek.">
+  <title>Service | Daniya Nussipbek</title>
+  <style>
+    :root {
+      --background: #e4d8c4;
+      --surface: #d6c1ae;
+      --cream: #f4ead9;
+      --ink: #2b1e1b;
+      --muted: #6f5852;
+      --deep-red: #971f16;
+      --accent: #b14c47;
+      --line: rgba(111, 88, 82, .27);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 14%, rgba(177,76,71,.13), transparent 24%),
+        radial-gradient(circle at 7% 58%, rgba(244,234,217,.74), transparent 28%),
+        linear-gradient(rgba(111,88,82,.075) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111,88,82,.075) 1px, transparent 1px),
+        var(--background);
+      background-size: auto, auto, 68px 68px, 68px 68px, auto;
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page-shell {
+      width: min(1420px, calc(100% - 96px));
+      margin-inline: auto;
+    }
+    .back-link,
+    .page-code,
+    .eyebrow,
+    .service-index,
+    .service-meta,
+    .service-tags,
+    .footer {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .topbar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.28);
+      font-size: 9px;
+      font-weight: 700;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .back-link:hover,
+    .back-link:focus-visible {
+      color: var(--cream);
+      background: var(--ink);
+      border-color: var(--ink);
+      outline: none;
+    }
+    .page-code { color: var(--muted); font-size: 9px; }
+
+    .page-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr);
+      gap: 70px;
+      align-items: end;
+      padding: 78px 0 68px;
+    }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--deep-red);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      font-size: clamp(68px, 9.5vw, 138px);
+      line-height: .82;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .header-copy {
+      margin: 0;
+      padding-top: 20px;
+      border-top: 3px solid var(--deep-red);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .service-list {
+      display: grid;
+      gap: 24px;
+      padding-bottom: 92px;
+    }
+    .service-card {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) minmax(240px, .45fr);
+      gap: 34px;
+      min-height: 280px;
+      padding: clamp(32px, 4.5vw, 58px);
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.38);
+      box-shadow: 0 18px 44px rgba(43,30,27,.085);
+    }
+    .service-card:nth-child(even) { background: rgba(214,193,174,.42); }
+    .service-index {
+      color: var(--deep-red);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .service-main {
+      align-self: start;
+    }
+    .service-title {
+      max-width: 680px;
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: .98;
+      letter-spacing: -.012em;
+      text-transform: uppercase;
+    }
+    .service-role {
+      margin: 16px 0 0;
+      color: var(--deep-red);
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+    }
+    .service-description {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .service-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 34px;
+      padding-left: 30px;
+      border-left: 1px solid var(--line);
+    }
+    .service-meta {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.8;
+    }
+    .service-meta strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 10px;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.4;
+    }
+    .service-tags span {
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      background: rgba(244,234,217,.3);
+    }
+
+    .footer {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 8px;
+    }
+    .footer a { color: var(--ink); border-bottom: 1px solid var(--deep-red); }
+
+    @media (max-width: 1040px) {
+      .page-shell { width: min(100% - 48px, 920px); }
+      .page-header { grid-template-columns: 1fr; gap: 34px; }
+      .header-copy { max-width: 650px; }
+      .service-card { grid-template-columns: 84px minmax(0, 1fr); }
+      .service-side {
+        grid-column: 2;
+        padding: 24px 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .page-shell { width: calc(100% - 36px); }
+      .topbar { min-height: 68px; }
+      .page-header { padding: 54px 0 42px; }
+      h1 { font-size: clamp(60px, 20vw, 94px); }
+      .service-card { display: block; min-height: 0; padding: 30px 24px; }
+      .service-main { margin-top: 26px; }
+      .service-title { font-size: 36px; }
+      .service-side { margin-top: 30px; }
+      .footer { padding: 24px 0; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Home</a>
+      <span class="page-code">05 / Service</span>
+    </header>
+
+    <section class="page-header" aria-labelledby="service-title">
+      <div>
+        <p class="eyebrow">Community &amp; leadership</p>
+        <h1 id="service-title">Service</h1>
+      </div>
+      <p class="header-copy">Community work centered on accessible STEM education, sustainable habits, creative fundraising, and helping others build with confidence.</p>
+    </section>
+
+    <section class="service-list" aria-label="Community service and volunteer leadership">
+      <article class="service-card">
+        <span class="service-index">S—01</span>
+        <div class="service-main">
+          <h2 class="service-title">MakerWorks Club</h2>
+          <p class="service-role">Events Chair · Engagement Lead · Volunteer</p>
+          <p class="service-description">Supported student makers at the Jackson Innovation Studio by assisting with 3D printing and laser cutting, monitoring equipment use, and reinforcing safe and clean studio practices. I also introduced MakerWorks in engineering classes to recruit volunteers and organized community-building events.</p>
+        </div>
+        <aside class="service-side">
+          <div class="service-meta"><strong>University of Illinois</strong>Urbana, Illinois<br>September 2024 - May 2025</div>
+          <div class="service-tags"><span>STEM Support</span><span>Makerspace Safety</span><span>Community Events</span></div>
+        </aside>
+      </article>
+
+      <article class="service-card">
+        <span class="service-index">S—02</span>
+        <div class="service-main">
+          <h2 class="service-title">Phi Sigma Rho Philanthropy</h2>
+          <p class="service-role">Vice President of Finance</p>
+          <p class="service-description">Helped coordinate fundraisers and philanthropy events for the engineering sorority while managing the budget, tracking expenses, and completing financial documentation. The work supported stronger participation and community visibility for the chapter’s service efforts.</p>
+        </div>
+        <aside class="service-side">
+          <div class="service-meta"><strong>Engineering Sorority</strong>Urbana, Illinois<br>November 2024 - May 2025</div>
+          <div class="service-tags"><span>Fundraising</span><span>Philanthropy</span><span>Financial Leadership</span></div>
+        </aside>
+      </article>
+
+      <article class="service-card">
+        <span class="service-index">S—03</span>
+        <div class="service-main">
+          <h2 class="service-title">Interact STEM Workshops</h2>
+          <p class="service-role">Interact Service Club Leader</p>
+          <p class="service-description">Led hands-on STEM workshops for AJK students through the Interact Service Club. The workshops introduced young participants to engineering and science through approachable activities designed to make technical learning engaging and accessible.</p>
+        </div>
+        <aside class="service-side">
+          <div class="service-meta"><strong>Lake Forest Academy</strong>High School Service Leadership</div>
+          <div class="service-tags"><span>STEM Education</span><span>Youth Outreach</span><span>Workshop Leadership</span></div>
+        </aside>
+      </article>
+
+      <article class="service-card">
+        <span class="service-index">S—04</span>
+        <div class="service-main">
+          <h2 class="service-title">Community Clothing Swap</h2>
+          <p class="service-role">Sustainability Club &amp; Interact Leader</p>
+          <p class="service-description">Co-led a school clothing swap that gave students an opportunity to exchange clothing rather than discard it. Remaining items were donated, combining community participation with waste reduction and practical sustainability.</p>
+        </div>
+        <aside class="service-side">
+          <div class="service-meta"><strong>Lake Forest Academy</strong>High School Community Initiative</div>
+          <div class="service-tags"><span>Sustainability</span><span>Donation Drive</span><span>Reuse</span></div>
+        </aside>
+      </article>
+
+      <article class="service-card">
+        <span class="service-index">S—05</span>
+        <div class="service-main">
+          <h2 class="service-title">Jamnesty Rock Festival</h2>
+          <p class="service-role">Band Leader · Main Performer</p>
+          <p class="service-description">Participated in Jamnesty, an Amnesty Club rock festival that raised donations through vendors and direct contributions. The band I led served as the main performer, using live music to bring the school community together around a charitable event.</p>
+        </div>
+        <aside class="service-side">
+          <div class="service-meta"><strong>Amnesty Club × COAX</strong>Lake Forest Academy</div>
+          <div class="service-tags"><span>Creative Fundraising</span><span>Music Leadership</span><span>Community Engagement</span></div>
+        </aside>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Daniya Nussipbek</span>
+      <span>Designed &amp; generated in 2026 with OpenAI Codex (GPT-5) · Palette inspiration: <a href="https://coolors.co/" target="_blank" rel="noreferrer">Coolors</a></span>
+    </footer>
+  </main>
+</body>
+</html>

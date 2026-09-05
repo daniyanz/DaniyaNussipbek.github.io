@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Education timeline of Daniya Nussipbek.">
+  <title>Education | Daniya Nussipbek</title>
+  <style>
+    :root {
+      --ink: #2b1e1b;
+      --muted: #6f5852;
+      --dim: #81271b;
+      --cream: #e4d8c4;
+      --taupe: #a38b81;
+      --red: #b14c47;
+      --deep-red: #81271b;
+      --line: rgba(111, 88, 82, .38);
+      --paper: #c9b5a7;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      min-height: 100svh;
+      overflow: hidden;
+      background:
+        linear-gradient(110deg, rgba(228,216,196,.94), rgba(200,178,164,.84) 48%, rgba(163,139,129,.90)),
+        radial-gradient(circle at 72% 18%, var(--cream), var(--taupe) 58%);
+    }
+
+    .grid {
+      position: fixed;
+      z-index: -3;
+      inset: -55%;
+      opacity: .30;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 64px 64px;
+      transform: rotate(-8deg);
+      animation: drift 24s linear infinite;
+      mask-image: radial-gradient(circle at 58% 42%, black, transparent 62%);
+    }
+
+    .orbital {
+      position: fixed;
+      z-index: -2;
+      width: min(58vw, 760px);
+      aspect-ratio: 1;
+      right: -20vw;
+      top: -29vw;
+      border: 1px solid rgba(129,39,27,.46);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: orbit 34s linear infinite;
+    }
+    .orbital::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border: 1px dashed rgba(129,39,27,.32);
+      border-radius: 50%;
+    }
+
+    .topbar,
+    .page-header,
+    .timeline,
+    .footer {
+      width: min(1180px, calc(100% - 72px));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .back-link { display: inline-flex; align-items: center; gap: 10px; }
+    .back-link::before { content: "←"; color: var(--deep-red); font-size: 15px; }
+    .page-code { color: var(--muted); }
+
+    .page-header {
+      padding: clamp(72px, 10vw, 130px) 0 90px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: end;
+    }
+    .kicker {
+      margin: 0 0 20px;
+      color: var(--deep-red);
+      font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+      font-size: clamp(60px, 9vw, 118px);
+      line-height: .82;
+      letter-spacing: -.018em;
+      text-transform: uppercase;
+    }
+    .header-note {
+      max-width: 250px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 40px 0 150px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 62px;
+      left: 50%;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(var(--deep-red), var(--red) 55%, var(--muted));
+      box-shadow: 0 0 18px rgba(129,39,27,.18);
+    }
+
+    .entry {
+      position: relative;
+      min-height: 455px;
+      display: grid;
+      grid-template-columns: 1fr 190px 1fr;
+      align-items: center;
+    }
+    .entry + .entry { margin-top: 70px; }
+    .entry-card {
+      position: relative;
+      padding: 36px 38px;
+      border: 1px solid rgba(111,88,82,.28);
+      background: rgba(228,216,196,.48);
+      box-shadow: 0 22px 60px rgba(43,30,27,.10);
+      backdrop-filter: blur(8px);
+    }
+    .entry:nth-child(odd) .entry-card { grid-column: 3; }
+    .entry:nth-child(even) .entry-card { grid-column: 1; text-align: right; }
+    .entry-card::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 42px;
+      height: 1px;
+      background: var(--deep-red);
+    }
+    .entry:nth-child(odd) .entry-card::before { left: -42px; }
+    .entry:nth-child(even) .entry-card::before { right: -42px; }
+
+    .date {
+      margin: 0 0 14px;
+      color: var(--deep-red);
+      font: 700 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+    }
+    .school {
+      margin: 0;
+      font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+      font-size: clamp(31px, 4vw, 51px);
+      line-height: .98;
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+    }
+    .degree {
+      margin: 20px 0 8px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .gpa {
+      display: inline-flex;
+      margin: 0 0 10px;
+      padding: 6px 9px;
+      border: 1px solid rgba(111,88,82,.28);
+      color: var(--deep-red);
+      background: rgba(244,234,217,.34);
+      font: 700 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .location {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .activities {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(111,88,82,.28);
+    }
+    .activities-label {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--deep-red);
+      font: 700 9px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+    }
+    .activities-placeholder {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .activities-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+      list-style: none;
+      text-align: left;
+    }
+    .activities-list li {
+      position: relative;
+      padding-left: 17px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .activities-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--deep-red);
+    }
+
+    .logo-node {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      width: 142px;
+      height: 142px;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 2px solid var(--deep-red);
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow:
+        0 0 0 12px rgba(228,216,196,.56),
+        0 18px 45px rgba(43,30,27,.20);
+      animation: logo-pulse 3.2s ease-in-out infinite;
+    }
+    .entry:nth-child(2) .logo-node { animation-delay: .7s; }
+    .entry:nth-child(3) .logo-node { animation-delay: 1.4s; }
+    .logo-node img {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 76%;
+      height: 76%;
+      object-fit: contain;
+    }
+    .logo-node .cmu-logo { width: 74%; height: 74%; }
+    .logo-node .uiuc-logo { width: 88%; height: 88%; }
+    .logo-node .lfa-logo { width: 82%; height: 82%; mix-blend-mode: multiply; }
+
+    .footer {
+      min-height: 82px;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font: 8px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .footer a { color: var(--ink); border-bottom: 1px solid var(--red); }
+
+    @keyframes drift { to { transform: rotate(-8deg) translate3d(64px,64px,0); } }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes logo-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 12px rgba(228,216,196,.56),
+          0 18px 45px rgba(43,30,27,.20),
+          0 0 0 0 rgba(129,39,27,.22);
+      }
+      50% {
+        box-shadow:
+          0 0 0 12px rgba(228,216,196,.72),
+          0 20px 50px rgba(43,30,27,.24),
+          0 0 0 18px rgba(129,39,27,0);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar, .page-header, .timeline, .footer { width: calc(100% - 36px); }
+      .page-header { grid-template-columns: 1fr; padding-bottom: 64px; }
+      .header-note { max-width: 430px; }
+      .timeline { padding-left: 0; }
+      .timeline::before { left: 70px; }
+      .entry {
+        min-height: 400px;
+        display: block;
+        padding: 80px 0 40px 135px;
+      }
+      .entry + .entry { margin-top: 24px; }
+      .entry-card,
+      .entry:nth-child(even) .entry-card { text-align: left; }
+      .entry-card::before,
+      .entry:nth-child(even) .entry-card::before {
+        left: -42px;
+        right: auto;
+      }
+      .logo-node { left: 70px; top: 115px; width: 112px; height: 112px; }
+    }
+
+    @media (max-width: 540px) {
+      .topbar { height: 64px; }
+      .page-code { display: none; }
+      .page-header { padding-top: 58px; }
+      .timeline::before { left: 44px; }
+      .entry { min-height: 430px; padding: 56px 0 35px 88px; }
+      .entry-card { padding: 28px 24px; }
+      .entry-card::before,
+      .entry:nth-child(even) .entry-card::before { width: 24px; left: -24px; }
+      .logo-node { left: 44px; top: 85px; width: 78px; height: 78px; box-shadow: 0 0 0 8px rgba(228,216,196,.56), 0 14px 35px rgba(43,30,27,.18); }
+      .footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .grid, .orbital { animation: none; }
+      .logo-node { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="grid" aria-hidden="true"></div>
+    <div class="orbital" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="back-link" href="index.html">Back to portfolio</a>
+      <span class="page-code">Education / Timeline 02</span>
+    </header>
+
+    <section class="page-header" aria-labelledby="page-title">
+      <div>
+        <p class="kicker">Academic path · 2020—2028</p>
+        <h1 id="page-title">Education</h1>
+      </div>
+      <p class="header-note">A chronological view of the institutions that shaped my technical foundation and engineering practice.</p>
+    </section>
+
+    <section class="timeline" aria-label="Education timeline">
+      <article class="entry">
+        <div class="logo-node">
+          <img class="cmu-logo" src="cmu-logo.png" alt="Carnegie Mellon University logo">
+        </div>
+        <div class="entry-card">
+          <p class="date">2025—2028</p>
+          <h2 class="school">Carnegie Mellon University</h2>
+          <p class="degree">Bachelor of Science Candidate · Mechanical Engineering</p>
+          <p class="gpa">GPA · 4.00 / 4.00</p>
+          <p class="location">Pittsburgh, Pennsylvania</p>
+          <div class="activities">
+            <span class="activities-label">Activities &amp; Leadership</span>
+            <ul class="activities-list">
+              <li>Biorobotics Lab Research Assistant</li>
+              <li>FireBlighters Farm Robotics Team Member</li>
+              <li>Carnegie Involvement Association Builder (CIA Buggy Team)</li>
+              <li>Cohon University Center Front Desk Attendant and Supervisor</li>
+              <li>Society of Women Engineers Member</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="logo-node">
+          <img class="uiuc-logo" src="uiuc-logo.png" alt="University of Illinois Urbana-Champaign logo">
+        </div>
+        <div class="entry-card">
+          <p class="date">2024—2025</p>
+          <h2 class="school">University of Illinois Urbana-Champaign</h2>
+          <p class="degree">Undergraduate Studies</p>
+          <p class="gpa">GPA · 3.67 / 4.00</p>
+          <p class="location">Urbana-Champaign, Illinois</p>
+          <div class="activities">
+            <span class="activities-label">Activities &amp; Leadership</span>
+            <ul class="activities-list">
+              <li>MakerWorks Studio Events Chair and Engagement Lead</li>
+              <li>Phi Sigma Rho Vice President of Finance</li>
+              <li>Central Asian Association Social Chair</li>
+              <li>Off-Road Illini Baja Team Chassis Member</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="logo-node">
+          <img class="lfa-logo" src="lfa-logo.png" alt="Lake Forest Academy logo">
+        </div>
+        <div class="entry-card">
+          <p class="date">2020—2024</p>
+          <h2 class="school">Lake Forest Academy</h2>
+          <p class="degree">Private College Preparatory School</p>
+          <p class="location">Lake Forest, Illinois</p>
+          <div class="activities">
+            <span class="activities-label">Activities &amp; Leadership</span>
+            <ul class="activities-list">
+              <li>House Cup Prefect</li>
+              <li>Ferry Hall Dorm Proctor</li>
+              <li>Science Olympiad Captain</li>
+              <li>Interact Service Club Leader</li>
+              <li>COAX Rock Band Leader</li>
+              <li><em>Mamma Mia!</em> Musical Pit Orchestra Bass Player</li>
+              <li>Representative of Lake Forest Academy at National Youth Leadership Conference</li>
+              <li>Peer Mentor</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Daniya Nussipbek</span>
+      <span>Designed &amp; generated in 2026 with OpenAI Codex (GPT-5) · Palette inspiration: <a href="https://coolors.co/" target="_blank" rel="noreferrer">Coolors</a></span>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,55 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Crossy Roads, a browser game created for 15-113 Coding with AI.">
-  <title>Crossy Roads</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crossy Road</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="game-shell">
-    <header class="game-header">
-      <a href="../projects.html" aria-label="Return to Daniya Nussipbek's projects">← Portfolio</a>
-      <div class="scoreboard" aria-live="polite">
-        <span>Score <strong id="score">0</strong></span>
-        <span>Best <strong id="best">0</strong></span>
-      </div>
-    </header>
+  <div id="game-wrapper">
+    <canvas id="gameCanvas"></canvas>
 
-    <section class="game-stage" aria-label="Crossy Roads game">
-      <canvas id="game" width="960" height="640" aria-label="Crossy Roads playing field"></canvas>
-
-      <div class="start-screen" id="startScreen">
-        <p class="eyebrow">15-113 · Coding with AI</p>
-        <h1><span>Crossy</span> Roads</h1>
-        <div class="mascot" aria-hidden="true">
-          <span class="comb"></span>
-          <span class="eye eye-left"></span>
-          <span class="eye eye-right"></span>
-          <span class="beak"></span>
-        </div>
-        <button id="startButton" type="button">Play game</button>
-        <p class="instructions">Arrow keys or WASD to hop · Avoid traffic</p>
+    <!-- Start Screen -->
+    <div id="start-screen" class="overlay">
+      <h1>🐔 Crossy Road</h1>
+      <p>Hop across roads and rivers without getting hit!</p>
+      <div class="controls-info">
+        <div>⬆️ / W — Move Forward</div>
+        <div>⬇️ / S — Move Back</div>
+        <div>⬅️ / A — Move Left</div>
+        <div>➡️ / D — Move Right</div>
       </div>
-
-      <div class="game-over" id="gameOver" hidden>
-        <p class="eyebrow">Run complete</p>
-        <h2>Game over</h2>
-        <p>You crossed <strong id="finalScore">0</strong> lanes.</p>
-        <button id="restartButton" type="button">Play again</button>
-      </div>
-    </section>
-
-    <div class="touch-controls" aria-label="Touch controls">
-      <button data-direction="up" aria-label="Move up">↑</button>
-      <div>
-        <button data-direction="left" aria-label="Move left">←</button>
-        <button data-direction="down" aria-label="Move down">↓</button>
-        <button data-direction="right" aria-label="Move right">→</button>
-      </div>
+      <button id="startBtn">Start Game</button>
     </div>
-  </main>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="overlay hidden">
+      <h1>Game Over</h1>
+      <p id="final-score">Score: 0</p>
+      <p id="high-score-display">Best: 0</p>
+      <button id="restartBtn">Play Again</button>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud">
+      <span id="score-display">Score: 0</span>
+      <span id="best-display">Best: 0</span>
+    </div>
+  </div>
+
   <script src="game.js"></script>
 </body>
 </html>

@@ -1,0 +1,80 @@
+CROSSY ROAD GAME DEVELOPMENT - CONVERSATION LOG
+================================================
+
+USER: Make a crossy road videogame
+
+ASSISTANT: I'll create a browser-based Crossy Road game using HTML5 Canvas and JavaScript.
+
+[Created game with HTML, CSS, and JavaScript featuring infinite world scrolling, 3 lane types (grass, road, water), cars with headlights/wheels, logs with wood grain, animated chicken player with hop bounce and squash & stretch, collision detection, death animations, score tracking, and keyboard/touch controls]
+
+Your Crossy Road game is ready at `crossy-road/index.html`. Just open it in any browser.
+
+---
+
+USER: can you make the graphics similar to the original game
+
+ASSISTANT: Let me look at the original game's visual style first, then overhaul the graphics.
+
+[Researched original Crossy Road style - voxel/low-poly aesthetic with chunky blocks, flat colors, no shading]
+
+[Completely rewrote rendering with voxel block style featuring top face + visible bottom side face for 3D depth effect, dark outlines on all elements, trees on grass lanes, blocky cars and logs, and pixel-art chicken]
+
+The visual overhaul is done. Changed to voxel block rendering with fake-3D side depth, grass tiles with pixel-perfect borders, trees with stacked rectangle layers, water with animated directional wave dashes, blocky cars and logs with proper shapes, and chicken redrawn as boxy pixel-art bird with hard edges and dark outlines.
+
+---
+
+USER: It still doesn't look like original game graphics. this is original [PROVIDED SCREENSHOT]
+
+ASSISTANT: Now I can see exactly what's needed. The original uses a true isometric/oblique 3D perspective — not top-down. Everything is rendered at a ~45° angle with visible front faces and top faces.
+
+[Completely rebuilt renderer with proper isometric projection, diamond-shaped parallelogram tiles, 3D cars with white roof blocks, flat brown logs, multi-layer cube trees, and proper isometric chicken]
+
+The renderer has been completely rebuilt from scratch with true isometric projection, proper 2:1 isometric formula, painter's algorithm for back-to-front rendering, diamond-shaped ground tiles, blocky 3D cars with white cabin blocks, flat wide brown rectangular log blocks, pyramid-shaped trees, and white/grey blocky isometric chicken.
+
+---
+
+USER: Okay this is better. Now the chicken is always facing towards the player in your game and that's a bug. We need it to face the way it faces when moving. Then the drowning animation is off
+
+ASSISTANT: [Fixed both bugs by adding facing parameter to drawChickenAt function and completely rewriting death animations]
+
+Both bugs are fixed:
+
+**Facing direction** — drawChickenAt now takes a facing parameter. The head, comb, and beak all shift position in the direction of movement. For left/right facing, only the single near-side eye is shown.
+
+**Drown animation** — completely rewritten. Instead of broken save/restore/translate, it now gradually sinks the chicken downward by passing a negative elevPx that goes from 0 to -18px while simultaneously fading globalAlpha from 1 to 0.
+
+---
+
+USER: The game graphics are still slightly off [PROVIDED ANOTHER SCREENSHOT]
+
+ASSISTANT: Now I can see the exact issues clearly. The view angle is much more oblique — camera is tilted further forward, lanes are very wide horizontally and short vertically (more like a 4:1 ratio, not 2:1).
+
+[Completely rewrote with cabinet/cavalier oblique projection instead of isometric, matching the exact camera angle and proportions from the screenshot]
+
+The renderer has been completely rebuilt from scratch. Changed to cabinet oblique projection where lanes are wide horizontal bands with shallow recession angle, cars have orange-red body block + large white roof/cabin block + black windows + wheel wells, trees are 3 stacked lime-green blocks on brown trunk, logs are flat dark brown rectangles, road is dark grey with light grey dashes, water is flat sky blue with animated foam streaks, and chicken is small white boxy figure.
+
+---
+
+USER: The chicken is able to walk on cells that have trees on them. Then the wood bricks floating on water have a wrong logic because the chicken still has one more cell to its right but if u jump right it should land on that cell instead of falling into the water
+
+ASSISTANT: [Fixed tree collision blocking and water/log collision logic]
+
+Both bugs fixed:
+
+**Trees block movement** — handleMove now looks up the target lane before committing the hop. If it's a safe lane and the destination column has a tree on it, the move is rejected entirely.
+
+**Water / log logic** — The entire water drown check is now skipped while hopAnim.active (player is mid-air during hop). The on-log test uses Math.round(player.col) + 0.5 (the snapped grid cell center) instead of raw drifted player.col so hopping onto a cell with log coverage correctly registers as "on log" the instant the hop completes.
+
+---
+
+USER: The log logic is still wrong.
+
+ASSISTANT: [Identified root cause: Math.round(player.col) was snapping drifted position incorrectly, causing false drowns]
+
+Root cause: The previous code applied Math.round(player.col) before the on-log test. When the player drifts to e.g. 5.7 while riding a log, Math.round snaps to 6, so the center test was checking position 6.5 — one full cell ahead of where the player actually was.
+
+Fixed by:
+- Drift (player.col += lane.speed * dt) now always happens first, every frame
+- The on-log test uses cx = player.col + 0.5 — the real physical center with no rounding
+- The bounds check uses player.col directly
+- The hop animation fromCol now uses the actual drifted player.col float, so the visual animation starts from the true position

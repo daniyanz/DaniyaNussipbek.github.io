@@ -427,15 +427,23 @@
       object-fit: contain;
       object-position: center;
     }
-    .project-image.game-preview-frame { background: #79c9f0; }
+    .project-image.game-preview-frame { background: #1a2030; }
+    .game-preview-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 138.89%;
+      height: 138.89%;
+      border: 0;
+      pointer-events: none;
+      transform: scale(.72);
+      transform-origin: top left;
+    }
     .game-preview-link {
       position: absolute;
       inset: 0;
+      z-index: 1;
       display: block;
       overflow: hidden;
-    }
-    .game-preview-link img {
-      transition: transform .35s ease, filter .35s ease;
     }
     .game-preview-link::after {
       content: "Play Crossy Roads  ↗";
@@ -453,11 +461,6 @@
       text-transform: uppercase;
       letter-spacing: .12em;
       transition: background .2s ease, color .2s ease;
-    }
-    .game-preview-link:hover img,
-    .game-preview-link:focus-visible img {
-      transform: scale(1.025);
-      filter: brightness(.72);
     }
     .game-preview-link:hover::after,
     .game-preview-link:focus-visible::after {
@@ -717,9 +720,8 @@
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image game-preview-frame">
-            <a class="game-preview-link" href="crossy-road/index.html" target="_blank" rel="noreferrer" aria-label="Open Crossy Roads in a new tab and play">
-              <img src="images/crossy-roads-home.png" alt="Crossy Roads game home screen with a chicken and traffic lanes">
-            </a>
+            <iframe src="crossy-road/index.html" title="Crossy Roads game home screen" tabindex="-1"></iframe>
+            <a class="game-preview-link" href="crossy-road/index.html" target="_blank" rel="noreferrer" aria-label="Open Crossy Roads in a new tab and play"></a>
             <figcaption class="image-code">Crossy Roads / Browser Game</figcaption>
           </figure>
           <div class="project-description">

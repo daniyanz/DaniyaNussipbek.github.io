@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #1a2030;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Arial Black', Arial, sans-serif;
+  user-select: none;
+}
+
+#game-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#gameCanvas {
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+}
+
+/* ── HUD ── */
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 14px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#hud span {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #000, -1px 2px 0 #000, 2px -1px 0 #000, -1px -1px 0 #000;
+}
+
+/* ── Overlays ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.68);
+  border-radius: 4px;
+  z-index: 20;
+  animation: popIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.overlay.hidden { display: none; }
+
+.overlay h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #f5d020;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #8a7000, -2px 3px 0 #8a7000;
+  margin-bottom: 4px;
+}
+
+.overlay p {
+  color: #ddd;
+  font-size: 0.9rem;
+  text-align: center;
+  max-width: 250px;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+}
+
+.controls-info {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  padding: 10px 22px;
+  color: #bbb;
+  font-size: 0.85rem;
+  line-height: 2;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+button {
+  margin-top: 6px;
+  padding: 11px 38px;
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: 'Arial Black', Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: #f5d020;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #a08000, 0 7px 6px rgba(0,0,0,0.45);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+button:hover  { background: #fde030; }
+button:active { transform: translateY(4px); box-shadow: 0 1px 0 #a08000; }
+
+#final-score, #high-score-display {
+  font-size: 1.2rem;
+  color: #f5d020;
+  font-weight: 900;
+  text-shadow: 2px 2px 0 #7a6000;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}

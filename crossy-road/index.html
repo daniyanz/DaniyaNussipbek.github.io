@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Crossy Roads, a browser game created for 15-113 Coding with AI.">
+  <title>Crossy Roads</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="game-header">
+      <a href="../projects.html" aria-label="Return to Daniya Nussipbek's projects">← Portfolio</a>
+      <div class="scoreboard" aria-live="polite">
+        <span>Score <strong id="score">0</strong></span>
+        <span>Best <strong id="best">0</strong></span>
+      </div>
+    </header>
+
+    <section class="game-stage" aria-label="Crossy Roads game">
+      <canvas id="game" width="960" height="640" aria-label="Crossy Roads playing field"></canvas>
+
+      <div class="start-screen" id="startScreen">
+        <p class="eyebrow">15-113 · Coding with AI</p>
+        <h1><span>Crossy</span> Roads</h1>
+        <div class="mascot" aria-hidden="true">
+          <span class="comb"></span>
+          <span class="eye eye-left"></span>
+          <span class="eye eye-right"></span>
+          <span class="beak"></span>
+        </div>
+        <button id="startButton" type="button">Play game</button>
+        <p class="instructions">Arrow keys or WASD to hop · Avoid traffic</p>
+      </div>
+
+      <div class="game-over" id="gameOver" hidden>
+        <p class="eyebrow">Run complete</p>
+        <h2>Game over</h2>
+        <p>You crossed <strong id="finalScore">0</strong> lanes.</p>
+        <button id="restartButton" type="button">Play again</button>
+      </div>
+    </section>
+
+    <div class="touch-controls" aria-label="Touch controls">
+      <button data-direction="up" aria-label="Move up">↑</button>
+      <div>
+        <button data-direction="left" aria-label="Move left">←</button>
+        <button data-direction="down" aria-label="Move down">↓</button>
+        <button data-direction="right" aria-label="Move right">→</button>
+      </div>
+    </div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>

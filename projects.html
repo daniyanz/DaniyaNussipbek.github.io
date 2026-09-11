@@ -427,6 +427,47 @@
       object-fit: contain;
       object-position: center;
     }
+    .project-image.game-preview-frame { background: #79c9f0; }
+    .game-preview-link {
+      position: absolute;
+      inset: 0;
+      display: block;
+      overflow: hidden;
+    }
+    .game-preview-link img {
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .game-preview-link::after {
+      content: "Play Crossy Roads  ↗";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      min-width: max-content;
+      padding: 14px 18px;
+      color: var(--cream);
+      background: rgba(43,30,27,.88);
+      border: 1px solid rgba(244,234,217,.42);
+      box-shadow: 0 12px 32px rgba(0,0,0,.24);
+      font: 700 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      transition: background .2s ease, color .2s ease;
+    }
+    .game-preview-link:hover img,
+    .game-preview-link:focus-visible img {
+      transform: scale(1.025);
+      filter: brightness(.72);
+    }
+    .game-preview-link:hover::after,
+    .game-preview-link:focus-visible::after {
+      color: var(--ink);
+      background: var(--cream);
+    }
+    .game-preview-link:focus-visible {
+      outline: 3px solid var(--deep-red);
+      outline-offset: -3px;
+    }
     .project-image.kettle-comparison {
       padding: 18px 18px 46px;
       background: #f4efe7;
@@ -671,8 +712,31 @@
 
       <article class="project">
         <div class="project-heading">
-          <div><h2 class="project-title">Epic Tank Duel</h2><p class="project-course">15-112 · Fundamentals of Programming</p><p class="project-year">April 2026</p></div>
+          <div><h2 class="project-title">Crossy Roads</h2><p class="project-course">15-113 · Coding with AI</p><p class="project-year">2026</p></div>
           <span class="project-index">C—01 / Class Project</span>
+        </div>
+        <div class="project-body featured-project">
+          <figure class="project-image has-image game-preview-frame">
+            <a class="game-preview-link" href="crossy-road/index.html" target="_blank" rel="noreferrer" aria-label="Open Crossy Roads in a new tab and play">
+              <img src="images/crossy-roads-home.png" alt="Crossy Roads game home screen with a chicken and traffic lanes">
+            </a>
+            <figcaption class="image-code">Crossy Roads / Browser Game</figcaption>
+          </figure>
+          <div class="project-description">
+            <div>
+              <span class="description-label">Project Overview</span>
+              <p class="description-copy">In this quick project, we explored Kiro AI’s ability to recreate the core experience of the <em>Crossy Road</em> video game. The result is a playable browser game featuring lane-by-lane movement, traffic obstacles, scoring, keyboard controls, and touch-friendly controls.</p>
+              <p class="description-copy">Click the game preview to open Crossy Roads in a new browser tab and play.</p>
+            </div>
+            <p class="description-prompt">Kiro AI · browser game · game logic · collision detection · responsive controls</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-heading">
+          <div><h2 class="project-title">Epic Tank Duel</h2><p class="project-course">15-112 · Fundamentals of Programming</p><p class="project-year">April 2026</p></div>
+          <span class="project-index">C—02 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image tank-game-image">
@@ -694,7 +758,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Tetris</h2><p class="project-course">15-112 · Fundamentals of Programming</p><p class="project-year">March 2026</p></div>
-          <span class="project-index">C—02 / Class Project</span>
+          <span class="project-index">C—03 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image tetris-image">
@@ -715,7 +779,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Automatic Pill Box Project</h2><p class="project-course">24-101 · Introduction to Mechanical Engineering</p><p class="project-year">November 2025—December 2025</p></div>
-          <span class="project-index">C—03 / Class Project</span>
+          <span class="project-index">C—04 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image">
@@ -739,7 +803,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Repurposing an Electric Kettle Project</h2><p class="project-course">ME 270 · Design for Manufacturability</p><p class="project-year">April 2025—May 2025</p></div>
-          <span class="project-index">C—04 / Class Project</span>
+          <span class="project-index">C—05 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image kettle-comparison">
@@ -766,7 +830,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Handheld Vacuum Teardown &amp; Manufacturing Analysis</h2><p class="project-course">ME 270 · Design for Manufacturability</p><p class="project-year">February 2025—March 2025</p></div>
-          <span class="project-index">C—05 / Class Project</span>
+          <span class="project-index">C—06 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image vacuum-image">

@@ -103,6 +103,21 @@
     }
     .back-link { display: inline-flex; align-items: center; gap: 10px; }
     .back-link::before { content: "←"; color: var(--deep-red); font-size: 15px; }
+    .topbar-actions { display: flex; align-items: center; gap: 18px; }
+    .class-projects-link {
+      padding: 9px 13px;
+      color: var(--cream);
+      background: var(--deep-red);
+      border: 1px solid var(--deep-red);
+      white-space: nowrap;
+      transition: color .2s ease, background .2s ease;
+    }
+    .class-projects-link:hover,
+    .class-projects-link:focus-visible {
+      color: var(--deep-red);
+      background: transparent;
+    }
+    .class-projects-link:focus-visible { outline: 2px solid var(--deep-red); outline-offset: 3px; }
     .page-code { color: var(--muted); }
 
     .page-header {
@@ -137,6 +152,7 @@
 
     .projects { padding-bottom: 150px; }
     .class-section-header {
+      scroll-margin-top: 24px;
       margin-top: 78px;
       padding: 74px 0 70px;
       display: grid;
@@ -570,7 +586,10 @@
 
     <nav class="topbar" aria-label="Page navigation">
       <a class="back-link" href="index.html">Back to home</a>
-      <span class="page-code">Section 02 / Projects</span>
+      <div class="topbar-actions">
+        <a class="class-projects-link" href="#class-projects">My Class Projects ↓</a>
+        <span class="page-code">Section 02 / Projects</span>
+      </div>
     </nav>
 
     <header class="page-header">
@@ -705,7 +724,7 @@
         </div>
       </article>
 
-      <header class="class-section-header">
+      <header class="class-section-header" id="class-projects">
         <div>
           <p class="class-section-kicker">Academic Work</p>
           <h2 class="class-section-title">Class Projects</h2>

@@ -135,6 +135,15 @@
       grid-column: span 5;
       height: 520px;
     }
+    .gallery-card.portrait {
+      grid-column: span 6;
+      height: 720px;
+    }
+    .gallery-card.photo-wide {
+      grid-column: span 12;
+      height: auto;
+      aspect-ratio: 3 / 2;
+    }
     .gallery-card img,
     .gallery-card video {
       display: block;
@@ -201,6 +210,8 @@
       .gallery-card.large,
       .gallery-card.small { grid-column: span 6; height: 380px; }
       .gallery-card.wide { height: 500px; }
+      .gallery-card.portrait { height: 600px; }
+      .gallery-card.photo-wide { height: auto; }
     }
 
     @media (max-width: 680px) {
@@ -240,10 +251,25 @@
         <p class="eyebrow">Engineering in practice</p>
         <h1 id="gallery-title">Gallery</h1>
       </div>
-      <p class="header-copy">A visual record of CAD development, assembly design, cross-section studies, and structural analysis across recent engineering projects.</p>
+      <p class="header-copy">A visual record of robotics, prototypes, CAD development, assembly design, and structural analysis across recent engineering projects.</p>
     </section>
 
-    <section class="gallery-grid" aria-label="Engineering CAD and analysis gallery">
+    <section class="gallery-grid" aria-label="Engineering project gallery">
+      <figure class="gallery-card portrait contain">
+        <img src="images/Sprayer Photo.png" alt="Close-up of the marking-spray mechanism mounted beneath the Fireblight detector robot">
+        <figcaption class="gallery-caption">Fireblight Detector Robot / Spraying Mechanism</figcaption>
+      </figure>
+
+      <figure class="gallery-card portrait contain">
+        <img src="images/RobotPhoto.png" alt="Fireblight detector robot outdoors on the Carnegie Mellon campus">
+        <figcaption class="gallery-caption">Fireblight Detector Robot / Robot Photo</figcaption>
+      </figure>
+
+      <figure class="gallery-card photo-wide">
+        <img src="images/RobotAndMe.jpg" alt="Daniya Nussipbek standing beside the Fireblight detector robot">
+        <figcaption class="gallery-caption">Fireblight Robot and Me</figcaption>
+      </figure>
+
       <figure class="gallery-card wide video-card">
         <video controls muted playsinline preload="metadata" aria-label="Slider Assembly CAD animation">
           <source src="images/Slider Assembly v5_ (Daniyas) - Autodesk Fusion (Education License)  2026-06-08 18-29-10.mp4" type="video/mp4">
@@ -270,6 +296,14 @@
       <figure class="gallery-card wide contain">
         <img src="images/Assembly.png" alt="Transparent green Tamagotchi CAD model showing its internal components">
         <figcaption class="gallery-caption">Tamagotchi Class CAD Practice / Assembly View</figcaption>
+      </figure>
+
+      <figure class="gallery-card wide video-card">
+        <video controls muted playsinline preload="metadata" aria-label="Tamagotchi CAD top-level exploded-view animation">
+          <source src="images/TopLvlExplode.mp4" type="video/mp4">
+          Your browser does not support the video element.
+        </video>
+        <figcaption class="gallery-caption">Tamagotchi Class CAD Practice / Top-Level Exploded Animation</figcaption>
       </figure>
 
       <figure class="gallery-card large contain">

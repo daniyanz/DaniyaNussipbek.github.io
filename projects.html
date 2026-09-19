@@ -443,6 +443,13 @@
       object-fit: contain;
       object-position: center;
     }
+    .project-image.control-systems-image { background: #e8e8e2; }
+    .project-image.control-systems-image img,
+    .project-image.solid-mechanics-image img {
+      object-fit: contain;
+      object-position: center;
+    }
+    .project-image.solid-mechanics-image { background: #fff; }
     .project-image.game-preview-frame { background: #1a2030; }
     .game-preview-frame iframe {
       position: absolute;
@@ -821,8 +828,56 @@
 
       <article class="project">
         <div class="project-heading">
-          <div><h2 class="project-title">Automatic Pill Box Project</h2><p class="project-course">24-101 · Introduction to Mechanical Engineering</p><p class="project-year">November 2025—December 2025</p></div>
+          <div><h2 class="project-title">Control Systems Challenge</h2><p class="project-course">24-101 · Fundamentals of Mechanical Engineering</p><p class="project-year">October 2025</p></div>
           <span class="project-index">C—05 / Class Project</span>
+        </div>
+        <div class="project-body featured-project">
+          <figure class="project-image has-image control-systems-image">
+            <img src="images/control-systems-challenge.png" alt="Four-wheeled mobile robot with an ultrasonic distance sensor and onboard control electronics">
+            <figcaption class="image-code">Control Systems Challenge / Mobile Robot</figcaption>
+          </figure>
+          <div class="project-description">
+            <div>
+              <span class="description-label">Project Overview</span>
+              <p class="description-copy">In this challenge, I programmed a mobile robot to complete a two-stage autonomous mission. The robot first used its line sensors to count a specified number of black lines and pause for three seconds, then used an ultrasonic sensor to approach an object and stop near a target distance.</p>
+            </div>
+          </div>
+          <div class="project-followup">
+            <p class="description-copy">I structured the Arduino program with Boolean task states, conditional statements, and while loops so that the robot could transition cleanly between behaviors. The line-counting routine continuously sampled the sensors until each line had been crossed, while the distance-control routine repeatedly measured the obstacle distance and stopped the motors once the target was reached.</p>
+            <p class="description-copy">I also used free-body diagrams and static equilibrium to calculate the forces on the wheels, verified that the silicone rubber tires exceeded the required 9.6 psi compressive strength, and confirmed that the motors’ rated torque of 0.1471 N·m exceeded the calculated 0.1036 N·m requirement. Testing showed that the robot counted the correct number of lines and stopped close to the target distance. I then analyzed its tendency to drift and identified improved motor control or wheel encoders as possible ways to achieve straighter, fully autonomous motion.</p>
+            <p class="description-prompt">Arduino · control systems · sensor integration · conditional logic · static equilibrium · material strength · motor torque · experimental testing</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-heading">
+          <div><h2 class="project-title">Solid Mechanics Challenge</h2><p class="project-course">24-101 · Fundamentals of Mechanical Engineering</p><p class="project-year">September 2025</p></div>
+          <span class="project-index">C—06 / Class Project</span>
+        </div>
+        <div class="project-body featured-project">
+          <figure class="project-image has-image solid-mechanics-image">
+            <img src="images/solid-mechanics-challenge.png" alt="CAD assembly of the gear-driven solid mechanics challenge machine">
+            <figcaption class="image-code">Solid Mechanics Challenge / Gear-Train CAD Assembly</figcaption>
+          </figure>
+          <div class="project-description">
+            <div>
+              <span class="description-label">Project Overview</span>
+              <p class="description-copy">In this challenge, I analyzed and redesigned a gear-driven machine so that a replacement gear would produce the required output speed and allow the completed mechanism to power an LED. I applied gear relationships to determine that the replacement needed 48 teeth, then modeled the gear with a module of 1.5 and a 20-degree pressure angle.</p>
+            </div>
+          </div>
+          <div class="project-followup">
+            <p class="description-copy">I calculated an output torque of 1.06 × 10<sup>−3</sup> N·m and evaluated the loading on the pinion tooth using a free-body diagram, cross-sectional area, and shear-stress calculations. The resulting shear stress was 18,850 Pa, giving a factor of safety of 3.4 against the specified 65 kPa shear strength.</p>
+            <p class="description-copy">I also updated the back-frame geometry in CAD to account for the 13.5 mm difference between the gear radii and verified that the redesigned part fit the existing assembly before laser cutting. The completed machine operated successfully and illuminated the LED, confirming the gear and frame calculations.</p>
+            <p class="description-prompt">Solid mechanics · gear-ratio calculations · torque · shear stress · factor of safety · CAD redesign · laser cutting · physical testing</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-heading">
+          <div><h2 class="project-title">Automatic Pill Box Project</h2><p class="project-course">24-101 · Introduction to Mechanical Engineering</p><p class="project-year">November 2025—December 2025</p></div>
+          <span class="project-index">C—07 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image">
@@ -846,7 +901,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Repurposing an Electric Kettle Project</h2><p class="project-course">ME 270 · Design for Manufacturability</p><p class="project-year">April 2025—May 2025</p></div>
-          <span class="project-index">C—06 / Class Project</span>
+          <span class="project-index">C—08 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image kettle-comparison">
@@ -873,7 +928,7 @@
       <article class="project">
         <div class="project-heading">
           <div><h2 class="project-title">Handheld Vacuum Teardown &amp; Manufacturing Analysis</h2><p class="project-course">ME 270 · Design for Manufacturability</p><p class="project-year">February 2025—March 2025</p></div>
-          <span class="project-index">C—07 / Class Project</span>
+          <span class="project-index">C—09 / Class Project</span>
         </div>
         <div class="project-body featured-project">
           <figure class="project-image has-image vacuum-image">

@@ -121,14 +121,15 @@
     .page-code { color: var(--muted); }
 
     .page-header {
-      padding: clamp(72px, 10vw, 130px) 0 88px;
+      padding: clamp(52px, 6vw, 78px) 0 clamp(48px, 5vw, 66px);
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 40px;
-      align-items: end;
+      grid-template-columns: minmax(0, 1fr) minmax(270px, 330px);
+      gap: clamp(48px, 8vw, 110px);
+      align-items: center;
+      border-bottom: 1px solid var(--line);
     }
     .kicker {
-      margin: 0 0 20px;
+      margin: 0 0 14px;
       color: var(--deep-red);
       font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       text-transform: uppercase;
@@ -137,17 +138,19 @@
     h1 {
       margin: 0;
       font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
-      font-size: clamp(60px, 9vw, 112px);
-      line-height: .84;
-      letter-spacing: -.018em;
+      font-size: clamp(48px, 6vw, 82px);
+      line-height: .9;
+      letter-spacing: -.012em;
       text-transform: uppercase;
     }
     .header-note {
-      max-width: 270px;
-      margin: 0 0 4px;
+      max-width: 330px;
+      margin: 0;
+      padding: 4px 0 4px 20px;
+      border-left: 3px solid var(--deep-red);
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.65;
     }
 
     .projects { padding-bottom: 150px; }
@@ -187,6 +190,7 @@
       padding: 74px 0 92px;
       border-top: 1px solid var(--line);
     }
+    .projects > .project:first-child { border-top: 0; }
     .project:last-child { border-bottom: 1px solid var(--line); }
 
     .project-heading {
@@ -199,7 +203,7 @@
     .project-title {
       margin: 0;
       font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
-      font-size: clamp(40px, 6vw, 72px);
+      font-size: clamp(38px, 5vw, 64px);
       line-height: .94;
       letter-spacing: -.015em;
       text-transform: uppercase;
@@ -559,7 +563,7 @@
 
     @media (max-width: 820px) {
       .topbar, .page-header, .projects, .footer { width: calc(100% - 36px); }
-      .page-header { grid-template-columns: 1fr; padding-bottom: 64px; }
+      .page-header { grid-template-columns: 1fr; gap: 30px; padding-bottom: 52px; }
       .header-note { max-width: 430px; }
       .class-section-header { grid-template-columns: 1fr; gap: 24px; padding: 58px 0; }
       .class-section-copy { max-width: 520px; }
@@ -572,7 +576,7 @@
     @media (max-width: 540px) {
       .topbar { height: 64px; }
       .page-code { display: none; }
-      .page-header { padding-top: 58px; }
+      .page-header { padding-top: 48px; }
       .project-heading { grid-template-columns: 1fr; gap: 12px; }
       .project-index { grid-row: 1; text-align: left; }
       .project-title { grid-row: 2; }
@@ -595,7 +599,7 @@
       <a class="back-link" href="index.html">Back to home</a>
       <div class="topbar-actions">
         <a class="class-projects-link" href="#class-projects">My Class Projects ↓</a>
-        <span class="page-code">Section 02 / Projects</span>
+        <span class="page-code">03 / Projects</span>
       </div>
     </nav>
 
@@ -863,12 +867,12 @@
           <div class="project-description">
             <div>
               <span class="description-label">Project Overview</span>
-              <p class="description-copy">In this challenge, I programmed a mobile robot to complete a two-stage autonomous mission. The robot first used its line sensors to count a specified number of black lines and pause for three seconds, then used an ultrasonic sensor to approach an object and stop near a target distance.</p>
+              <p class="description-copy">In this challenge, I programmed a mobile robot to complete a multi-stage autonomous mission using line sensors, an ultrasonic distance sensor, and motor control. The project introduced me to integrating software with physical hardware and organizing multiple robot behaviors within one control program.</p>
             </div>
           </div>
           <div class="project-followup">
-            <p class="description-copy">I structured the Arduino program with Boolean task states, conditional statements, and while loops so that the robot could transition cleanly between behaviors. The line-counting routine continuously sampled the sensors until each line had been crossed, while the distance-control routine repeatedly measured the obstacle distance and stopped the motors once the target was reached.</p>
-            <p class="description-copy">I also used free-body diagrams and static equilibrium to calculate the forces on the wheels, verified that the silicone rubber tires exceeded the required 9.6 psi compressive strength, and confirmed that the motors’ rated torque of 0.1471 N·m exceeded the calculated 0.1036 N·m requirement. Testing showed that the robot counted the correct number of lines and stopped close to the target distance. I then analyzed its tendency to drift and identified improved motor control or wheel encoders as possible ways to achieve straighter, fully autonomous motion.</p>
+            <p class="description-copy">I developed the Arduino control logic using task states, conditional statements, loops, and repeated sensor readings so the robot could transition between its assigned behaviors. I also used free-body diagrams, static equilibrium, material-strength analysis, and motor-torque calculations to evaluate whether the mechanical system met the challenge requirements.</p>
+            <p class="description-copy">During testing, the robot completed the required sensing and stopping behaviors. I also evaluated its tendency to drift and considered how motor calibration or closed-loop feedback could improve the accuracy of its path.</p>
             <p class="description-prompt">Arduino · control systems · sensor integration · conditional logic · static equilibrium · material strength · motor torque · experimental testing</p>
           </div>
         </div>
@@ -887,12 +891,12 @@
           <div class="project-description">
             <div>
               <span class="description-label">Project Overview</span>
-              <p class="description-copy">In this challenge, I analyzed and redesigned a gear-driven machine so that a replacement gear would produce the required output speed and allow the completed mechanism to power an LED. I applied gear relationships to determine that the replacement needed 48 teeth, then modeled the gear with a module of 1.5 and a 20-degree pressure angle.</p>
+              <p class="description-copy">In this challenge, I analyzed and redesigned a gear-driven machine so that a replacement gear would produce the required output speed and allow the completed mechanism to power an LED. I applied gear relationships to determine the necessary replacement geometry and then modeled the new gear in CAD.</p>
             </div>
           </div>
           <div class="project-followup">
-            <p class="description-copy">I calculated an output torque of 1.06 × 10<sup>−3</sup> N·m and evaluated the loading on the pinion tooth using a free-body diagram, cross-sectional area, and shear-stress calculations. The resulting shear stress was 18,850 Pa, giving a factor of safety of 3.4 against the specified 65 kPa shear strength.</p>
-            <p class="description-copy">I also updated the back-frame geometry in CAD to account for the 13.5 mm difference between the gear radii and verified that the redesigned part fit the existing assembly before laser cutting. The completed machine operated successfully and illuminated the LED, confirming the gear and frame calculations.</p>
+            <p class="description-copy">I evaluated the mechanism using torque calculations, a free-body diagram, pinion-tooth cross-sectional analysis, shear stress, and factor of safety. This analysis allowed me to assess whether the proposed design met the required performance and strength criteria.</p>
+            <p class="description-copy">I also updated the back-frame geometry in CAD to accommodate the new gear and verified that the redesigned part fit the existing assembly before laser cutting. The completed machine operated successfully and illuminated the LED, validating the overall design process.</p>
             <p class="description-prompt">Solid mechanics · gear-ratio calculations · torque · shear stress · factor of safety · CAD redesign · laser cutting · physical testing</p>
           </div>
         </div>

@@ -209,11 +209,13 @@
       font-size: 15px;
       line-height: 1.5;
     }
+    .coursework,
     .activities {
       margin-top: 24px;
       padding-top: 18px;
       border-top: 1px solid rgba(111,88,82,.28);
     }
+    .coursework-label,
     .activities-label {
       display: block;
       margin-bottom: 9px;
@@ -221,6 +223,23 @@
       font: 700 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       text-transform: uppercase;
       letter-spacing: .15em;
+    }
+    .coursework-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
+      list-style: none;
+      text-align: left;
+    }
+    .coursework-list li {
+      padding: 7px 9px;
+      border-left: 2px solid var(--deep-red);
+      background: rgba(244,234,217,.26);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
     }
     .activities-placeholder {
       margin: 0;
@@ -348,6 +367,7 @@
       .timeline::before { left: 44px; }
       .entry { min-height: 430px; padding: 56px 0 35px 88px; }
       .entry-card { padding: 28px 24px; }
+      .coursework-list { grid-template-columns: 1fr; }
       .entry-card::before,
       .entry:nth-child(even) .entry-card::before { width: 24px; left: -24px; }
       .logo-node { left: 44px; top: 85px; width: 78px; height: 78px; box-shadow: 0 0 0 8px rgba(228,216,196,.56), 0 14px 35px rgba(43,30,27,.18); }
@@ -390,6 +410,23 @@
           <p class="degree">Bachelor of Science Candidate · Mechanical Engineering</p>
           <p class="gpa">GPA · 4.00 / 4.00</p>
           <p class="location">Pittsburgh, Pennsylvania</p>
+          <div class="coursework">
+            <span class="coursework-label">Relevant Coursework</span>
+            <ul class="coursework-list">
+              <li>24-351 Dynamics</li>
+              <li>24-231 Fluid Mechanics</li>
+              <li>24-311 Numerical Methods</li>
+              <li>24-261 Mechanics I: 2D Design</li>
+              <li>24-251 Electronics for Sensing and Actuation</li>
+              <li>24-101 Fundamentals of Mechanical Engineering</li>
+              <li>24-302 Professional Development for Mechanical Engineers</li>
+              <li>24-203 TechSpark: Machine Shop Principles</li>
+              <li>24-204 TechSpark: Metal Jewelry</li>
+              <li>36-220 Engineering Statistics and Quality Control</li>
+              <li>15-112 Fundamentals of Programming and Computer Science</li>
+              <li>15-113 Effective Coding with AI</li>
+            </ul>
+          </div>
           <div class="activities">
             <span class="activities-label">Activities &amp; Leadership</span>
             <ul class="activities-list">
@@ -413,6 +450,15 @@
           <p class="degree">Undergraduate Studies</p>
           <p class="gpa">GPA · 3.67 / 4.00</p>
           <p class="location">Urbana-Champaign, Illinois</p>
+          <div class="coursework">
+            <span class="coursework-label">Relevant Coursework</span>
+            <ul class="coursework-list">
+              <li>ME-200 Thermodynamics</li>
+              <li>ME-270 Design for Manufacturability</li>
+              <li>ME-170 Computer-Aided Design</li>
+              <li>ME-199 Automotive Design Projects SAE</li>
+            </ul>
+          </div>
           <div class="activities">
             <span class="activities-label">Activities &amp; Leadership</span>
             <ul class="activities-list">

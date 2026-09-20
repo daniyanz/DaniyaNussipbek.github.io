@@ -60,21 +60,9 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      min-height: 34px;
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      background: rgba(244,234,217,.28);
-      font-size: 9px;
-      font-weight: 700;
-      transition: color .2s ease, background .2s ease, border-color .2s ease;
+      font-size: 10px;
     }
-    .back-link:hover,
-    .back-link:focus-visible {
-      color: var(--cream);
-      background: var(--ink);
-      border-color: var(--ink);
-      outline: none;
-    }
+    .back-link::before { content: "←"; color: var(--deep-red); font-size: 15px; }
     .section-code { color: var(--muted); font-size: 9px; }
 
     .page-header {
@@ -242,7 +230,7 @@
 <body>
   <main class="page-shell">
     <header class="topbar">
-      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Home</a>
+      <a class="back-link" href="index.html">Back to home</a>
       <span class="section-code">04 / Gallery</span>
     </header>
 
@@ -281,6 +269,11 @@
           Your browser does not support the video element.
         </video>
         <figcaption class="gallery-caption">Fire Blight Detector Robot / Top-Level Exploded View</figcaption>
+      </figure>
+
+      <figure class="gallery-card photo-wide">
+        <img src="images/FireBlighters Team Photo.jpg" alt="The Fire Blighters farm robotics team together for a group photo" loading="lazy">
+        <figcaption class="gallery-caption">Fire Blighters / Farm Robotics Challenge Team</figcaption>
       </figure>
 
       <figure class="gallery-card wide video-card">

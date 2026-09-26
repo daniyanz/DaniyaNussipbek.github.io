@@ -1,0 +1,281 @@
+/* MODI floating chatbot — shared across portfolio pages */
+#modi-widget {
+  --modi-ink: #2b1e1b;
+  --modi-muted: #6f5852;
+  --modi-cream: #f4ead9;
+  --modi-taupe: #d6c1ae;
+  --modi-accent: #b14c47;
+  --modi-deep-red: #81271b;
+  --modi-line: rgba(111, 88, 82, .38);
+
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 9999;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  color: var(--modi-ink);
+}
+
+#modi-widget * { box-sizing: border-box; }
+
+/* --- Toggle button --- */
+#modi-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 52px;
+  width: 52px;
+  padding: 0;
+  border: 1px solid var(--modi-line);
+  border-radius: 999px;
+  background: var(--modi-ink);
+  color: var(--modi-cream);
+  cursor: pointer;
+  overflow: hidden;
+  transition: width .28s ease, padding .28s ease, background .2s ease, border-color .2s ease;
+}
+#modi-toggle:hover,
+#modi-toggle:focus-visible {
+  width: 138px;
+  padding: 0 20px 0 9px;
+  justify-content: flex-start;
+  background: var(--modi-accent);
+  border-color: var(--modi-accent);
+  outline: none;
+}
+#modi-toggle svg { width: 32px; height: 26px; flex-shrink: 0; }
+.modi-toggle-antenna {
+  transform-origin: 16px 8px;
+  animation: modi-antenna-swing 2.4s ease-in-out infinite;
+}
+@keyframes modi-antenna-swing {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-14deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(14deg); }
+}
+#modi-toggle span {
+  margin-left: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: max-width .28s ease, opacity .18s ease, margin-left .28s ease;
+}
+#modi-toggle:hover span,
+#modi-toggle:focus-visible span {
+  margin-left: 8px;
+  max-width: 70px;
+  opacity: 1;
+}
+#modi-widget[data-open="true"] #modi-toggle { display: none; }
+
+/* --- Panel --- */
+#modi-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(360px, calc(100vw - 32px));
+  height: min(520px, calc(100vh - 96px));
+  background: var(--modi-cream);
+  border: 1px solid var(--modi-line);
+  box-shadow: 0 18px 48px rgba(43, 30, 27, .28);
+}
+#modi-widget[data-open="false"] #modi-panel { display: none; }
+
+/* --- Header --- */
+#modi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 58px;
+  padding: 0 10px 0 16px;
+  flex-shrink: 0;
+  background: var(--modi-ink);
+  color: var(--modi-cream);
+  border-bottom: 1px solid var(--modi-line);
+}
+#modi-header-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+#modi-robot {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: var(--modi-cream);
+}
+#modi-robot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.modi-robot-arm {
+  transform-origin: 9px 20px;
+  animation: modi-wave 1.6s ease-in-out infinite;
+}
+@keyframes modi-wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-18deg); }
+  50% { transform: rotate(4deg); }
+  75% { transform: rotate(-14deg); }
+}
+.modi-dot { animation: modi-think-pulse 1.2s ease-in-out infinite; }
+.modi-dot-2 { animation-delay: .2s; }
+.modi-dot-3 { animation-delay: .4s; }
+@keyframes modi-think-pulse {
+  0%, 100% { opacity: .25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+#modi-header-text { min-width: 0; }
+#modi-header-title {
+  margin: 0;
+  font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#modi-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--modi-line);
+  background: transparent;
+  color: var(--modi-cream);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+#modi-close:hover,
+#modi-close:focus-visible {
+  background: var(--modi-accent);
+  border-color: var(--modi-accent);
+  outline: none;
+}
+#modi-close svg { width: 13px; height: 13px; fill: currentColor; }
+
+/* --- Message area --- */
+#modi-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modi-msg {
+  max-width: 84%;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid var(--modi-line);
+}
+.modi-msg-bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, .5);
+  color: var(--modi-ink);
+  border-top-left-radius: 0;
+}
+.modi-msg-user {
+  align-self: flex-end;
+  background: var(--modi-deep-red);
+  color: var(--modi-cream);
+  border-color: var(--modi-deep-red);
+}
+
+#modi-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+}
+.modi-suggestion {
+  text-align: left;
+  padding: 9px 12px;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: 12.5px;
+  color: var(--modi-ink);
+  background: transparent;
+  border: 1px solid var(--modi-line);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.modi-suggestion:hover,
+.modi-suggestion:focus-visible {
+  background: var(--modi-ink);
+  color: var(--modi-cream);
+  border-color: var(--modi-ink);
+  outline: none;
+}
+
+/* --- Input row --- */
+#modi-input-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 12px;
+  border-top: 1px solid var(--modi-line);
+  background: rgba(255, 255, 255, .25);
+}
+#modi-input {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  color: var(--modi-ink);
+  background: var(--modi-cream);
+  border: 1px solid var(--modi-line);
+}
+#modi-input::placeholder { color: var(--modi-muted); }
+#modi-input:focus {
+  outline: none;
+  border-color: var(--modi-accent);
+}
+#modi-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--modi-ink);
+  background: var(--modi-ink);
+  color: var(--modi-cream);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+#modi-send:hover,
+#modi-send:focus-visible {
+  background: var(--modi-accent);
+  border-color: var(--modi-accent);
+  outline: none;
+}
+#modi-send svg { width: 15px; height: 15px; fill: currentColor; }
+
+@media (max-width: 480px) {
+  #modi-widget { right: 12px; bottom: 12px; }
+  #modi-panel { width: calc(100vw - 24px); height: calc(100vh - 88px); }
+}

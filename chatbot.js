@@ -9,7 +9,7 @@
   var WELCOME =
     "Hi, I'm MODI — Daniya's AI assistant. Ask me about her projects, skills, or how to get in touch.";
 
-  var API_URL = "http://127.0.0.1:5000/chat";
+  var API_URL = "https://modi-backend-ale0.onrender.com/chat";
   var ERROR_MESSAGE =
     "Sorry, I couldn't reach my brain right now. Please make sure the backend is running and try again.";
 

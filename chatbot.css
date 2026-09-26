@@ -201,6 +201,25 @@
   color: var(--modi-cream);
   border-color: var(--modi-deep-red);
 }
+.modi-msg-error {
+  color: var(--modi-deep-red);
+  border-color: var(--modi-deep-red);
+}
+.modi-msg-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 13px 14px;
+}
+.modi-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--modi-muted);
+  animation: modi-think-pulse 1.2s ease-in-out infinite;
+}
+.modi-typing-dot:nth-child(2) { animation-delay: .2s; }
+.modi-typing-dot:nth-child(3) { animation-delay: .4s; }
 
 #modi-suggestions {
   display: flex;

@@ -9,6 +9,10 @@
   var WELCOME =
     "Hi, I'm MODI — Daniya's AI assistant. Ask me about her projects, skills, or how to get in touch.";
 
+  var API_URL = "http://127.0.0.1:5000/chat";
+  var ERROR_MESSAGE =
+    "Sorry, I couldn't reach my brain right now. Please make sure the backend is running and try again.";
+
   var CLOSE_ICON =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   var SEND_ICON =
@@ -150,6 +154,13 @@
       widget.setAttribute("data-open", "false");
       toggle.focus();
     }
+    function addMessage(text, extraClass) {
+      var el2 = el("div", { class: "modi-msg modi-msg-bot" + (extraClass ? " " + extraClass : "") }, escapeHtml(text));
+      body.insertBefore(el2, suggestions);
+      body.scrollTop = body.scrollHeight;
+      return el2;
+    }
+
     function sendMessage(text) {
       var trimmed = text.trim();
       if (!trimmed) return;
@@ -164,6 +175,33 @@
         robotWaveEl.hidden = true;
         robotThinkEl.hidden = false;
       }
+
+      var typingEl = el(
+        "div",
+        { class: "modi-msg modi-msg-bot modi-msg-typing" },
+        '<span class="modi-typing-dot"></span><span class="modi-typing-dot"></span><span class="modi-typing-dot"></span>'
+      );
+      body.insertBefore(typingEl, suggestions);
+      body.scrollTop = body.scrollHeight;
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: trimmed })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("Bad response: " + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          typingEl.remove();
+          var reply = data && typeof data.reply === "string" ? data.reply : ERROR_MESSAGE;
+          addMessage(reply);
+        })
+        .catch(function () {
+          typingEl.remove();
+          addMessage(ERROR_MESSAGE, "modi-msg-error");
+        });
     }
 
     toggle.addEventListener("click", openPanel);

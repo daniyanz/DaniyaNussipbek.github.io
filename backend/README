@@ -1,0 +1,45 @@
+MODI is an OpenAI powered chatbot built into my personal portfolio. It allows users to ask questions about my engineering projects, experience, and background in a conversational format.
+
+So the UI is built using HTML, CSS, and JavaScript. When a user sends a message, the frontend sends a POST request to a Flask backend ran by Render. 
+
+The backend receives the message, sends it to the OpenAI API along with portfolio-specific context, and returns the generated response to the frontend.
+
+The general architecture is:
+
+The OpenAI API key is stored in .env file which is included in the .gitignore so the .env file is never exposed. 
+
+The chatbot also includes suggested question buttons to help visitors explore the portfolio.
+
+I used these tools:
+- HTML
+- CSS
+- JavaScript
+- Python
+- Flask
+- OpenAI API
+- Render
+- GitHub Pages
+- Git / GitHub
+- Claude Sonnet 5 VS Code extension
+
+
+To run this locally open repo and terminal:
+-------------------------
+cd backend #Goes into the backend folder
+
+#Creates a virtual Python environment named "venv"
+python3 -m venv venv      
+
+source venv/bin/activate # Activate the virtual environment
+
+#Installs all Python packages required by the backend stated in the requirements.txt
+pip install -r requirements.txt 
+
+python3 app.py #Start the Flask backend locally
+-------------------------
+
+
+After starting, the backend runs at http://127.0.0.1:5000
+The chatbot sends POST requests to http://127.0.0.1:5000/chat
+
+I used ChatGPT 5.6 Sol to help me understand frontend and backend setup.

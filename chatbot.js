@@ -13,6 +13,76 @@
   var ERROR_MESSAGE =
     "Sorry, I couldn't reach my brain right now. Please make sure the backend is running and try again.";
 
+  var STORAGE_KEY = "modi-chat-state";
+  var INACTIVITY_MS = 30 * 60 * 1000;
+
+  function readStoredState() {
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      var state = JSON.parse(raw);
+      if (!state || typeof state !== "object" || !Array.isArray(state.messages)) return null;
+      if (Date.now() - (state.lastActive || 0) > INACTIVITY_MS) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
+      return state;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeStoredState(state) {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      /* ignore (private browsing / storage disabled) */
+    }
+  }
+
+  var audioCtx = null;
+  function getAudioCtx() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!audioCtx) audioCtx = new AC();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playTone(freq, freq2, duration, volume) {
+    var ctx = getAudioCtx();
+    if (!ctx) return;
+    try {
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var now = ctx.currentTime;
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now);
+      if (freq2) osc.frequency.exponentialRampToValueAtTime(freq2, now + duration);
+      gain.gain.setValueAtTime(volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.02);
+    } catch (e) {
+      /* ignore (autoplay restrictions, unsupported browser) */
+    }
+  }
+
+  function playOpenSound() {
+    playTone(520, 780, 0.09, 0.12);
+  }
+  function playSendSound() {
+    playTone(420, 640, 0.1, 0.12);
+  }
+  function playReplySound() {
+    playTone(660, null, 0.08, 0.1);
+    setTimeout(function () {
+      playTone(880, null, 0.12, 0.09);
+    }, 90);
+  }
+
   var CLOSE_ICON =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   var SEND_ICON =
@@ -96,6 +166,7 @@
         '<div id="modi-robot">' + ROBOT_WAVE_ICON + ROBOT_THINK_ICON + "</div>" +
         '<div id="modi-header-text">' +
         '<p id="modi-header-title">MODI — Daniya’s AI Assistant</p>' +
+        '<p id="modi-header-sub"><i></i>Built by Claude Sonnet 5 · OpenAI API</p>' +
         "</div>" +
         "</div>"
     );
@@ -137,6 +208,7 @@
     inputRow.appendChild(sendBtn);
 
     var hasSentFirstMessage = false;
+    var messages = [];
 
     panel.appendChild(header);
     panel.appendChild(body);
@@ -146,35 +218,73 @@
     widget.appendChild(panel);
     document.body.appendChild(widget);
 
+    function saveState() {
+      writeStoredState({
+        open: widget.getAttribute("data-open") === "true",
+        hasSentFirstMessage: hasSentFirstMessage,
+        messages: messages,
+        lastActive: Date.now()
+      });
+    }
+
     function openPanel() {
       widget.setAttribute("data-open", "true");
       input.focus();
+      playOpenSound();
+      saveState();
     }
     function closePanel() {
       widget.setAttribute("data-open", "false");
       toggle.focus();
+      saveState();
     }
-    function addMessage(text, extraClass) {
-      var el2 = el("div", { class: "modi-msg modi-msg-bot" + (extraClass ? " " + extraClass : "") }, escapeHtml(text));
-      body.insertBefore(el2, suggestions);
+    function renderMessage(role, text) {
+      var cls =
+        "modi-msg " +
+        (role === "user" ? "modi-msg-user" : "modi-msg-bot") +
+        (role === "error" ? " modi-msg-error" : "");
+      var node = el("div", { class: cls }, escapeHtml(text));
+      body.insertBefore(node, suggestions);
+      return node;
+    }
+    function addMessage(role, text) {
+      renderMessage(role, text);
+      messages.push({ role: role, text: text });
       body.scrollTop = body.scrollHeight;
-      return el2;
+      if (role === "user") {
+        playSendSound();
+      } else {
+        playReplySound();
+      }
+      saveState();
     }
+
+    var stored = readStoredState();
+    if (stored) {
+      hasSentFirstMessage = !!stored.hasSentFirstMessage;
+      messages = stored.messages.slice();
+      messages.forEach(function (m) {
+        renderMessage(m.role, m.text);
+      });
+      if (hasSentFirstMessage) {
+        robotWaveEl.hidden = true;
+        robotThinkEl.hidden = false;
+      }
+      if (stored.open) widget.setAttribute("data-open", "true");
+      body.scrollTop = body.scrollHeight;
+    }
+    saveState();
 
     function sendMessage(text) {
       var trimmed = text.trim();
       if (!trimmed) return;
-      body.insertBefore(
-        el("div", { class: "modi-msg modi-msg-user" }, escapeHtml(trimmed)),
-        suggestions
-      );
-      body.scrollTop = body.scrollHeight;
-      input.value = "";
       if (!hasSentFirstMessage) {
         hasSentFirstMessage = true;
         robotWaveEl.hidden = true;
         robotThinkEl.hidden = false;
       }
+      addMessage("user", trimmed);
+      input.value = "";
 
       var typingEl = el(
         "div",
@@ -196,11 +306,11 @@
         .then(function (data) {
           typingEl.remove();
           var reply = data && typeof data.reply === "string" ? data.reply : ERROR_MESSAGE;
-          addMessage(reply);
+          addMessage("bot", reply);
         })
         .catch(function () {
           typingEl.remove();
-          addMessage(ERROR_MESSAGE, "modi-msg-error");
+          addMessage("error", ERROR_MESSAGE);
         });
     }
 

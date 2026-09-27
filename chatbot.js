@@ -206,12 +206,15 @@
     inputRow.appendChild(input);
     inputRow.appendChild(sendBtn);
 
+    var resizeHandle = el("div", { id: "modi-resize-handle", "aria-hidden": "true" });
+
     var hasSentFirstMessage = false;
     var messages = [];
 
     panel.appendChild(header);
     panel.appendChild(body);
     panel.appendChild(inputRow);
+    panel.appendChild(resizeHandle);
 
     widget.appendChild(toggle);
     widget.appendChild(panel);
@@ -222,9 +225,59 @@
         open: widget.getAttribute("data-open") === "true",
         hasSentFirstMessage: hasSentFirstMessage,
         messages: messages,
+        width: panel.style.width || null,
+        height: panel.style.height || null,
         lastActive: Date.now()
       });
     }
+
+    var MIN_PANEL_WIDTH = 300;
+    var MIN_PANEL_HEIGHT = 380;
+    var MAX_PANEL_WIDTH = 640;
+    var MAX_PANEL_HEIGHT = 760;
+
+    function clamp(value, lo, hi) {
+      return Math.max(lo, Math.min(hi, value));
+    }
+
+    resizeHandle.addEventListener("pointerdown", function (e) {
+      e.preventDefault();
+      var startX = e.clientX;
+      var startY = e.clientY;
+      var startRect = panel.getBoundingClientRect();
+      var startWidth = startRect.width;
+      var startHeight = startRect.height;
+      resizeHandle.setPointerCapture(e.pointerId);
+      document.body.style.userSelect = "none";
+
+      function onMove(ev) {
+        var newWidth = clamp(
+          startWidth + (startX - ev.clientX),
+          MIN_PANEL_WIDTH,
+          Math.min(MAX_PANEL_WIDTH, window.innerWidth - 32)
+        );
+        var newHeight = clamp(
+          startHeight + (startY - ev.clientY),
+          MIN_PANEL_HEIGHT,
+          Math.min(MAX_PANEL_HEIGHT, window.innerHeight - 96)
+        );
+        panel.style.width = newWidth + "px";
+        panel.style.height = newHeight + "px";
+      }
+      function onUp() {
+        document.removeEventListener("pointermove", onMove);
+        document.removeEventListener("pointerup", onUp);
+        document.body.style.userSelect = "";
+        saveState();
+      }
+      document.addEventListener("pointermove", onMove);
+      document.addEventListener("pointerup", onUp);
+    });
+    resizeHandle.addEventListener("dblclick", function () {
+      panel.style.width = "";
+      panel.style.height = "";
+      saveState();
+    });
 
     function openPanel() {
       widget.setAttribute("data-open", "true");
@@ -237,18 +290,26 @@
       toggle.focus();
       saveState();
     }
-    function renderMessage(role, text) {
+    function renderMessage(role, text, sources) {
       var cls =
         "modi-msg " +
         (role === "user" ? "modi-msg-user" : "modi-msg-bot") +
         (role === "error" ? " modi-msg-error" : "");
       var node = el("div", { class: cls }, escapeHtml(text));
-      body.insertBefore(node, suggestions);
+      if (sources && sources.length) {
+        var srcWrap = el("div", { class: "modi-msg-sources" });
+        sources.forEach(function (s, idx) {
+          if (idx > 0) srcWrap.appendChild(document.createTextNode(" · "));
+          srcWrap.appendChild(el("a", { href: s.url, class: "modi-source-link" }, escapeHtml(s.label)));
+        });
+        node.appendChild(srcWrap);
+      }
+      body.appendChild(node);
       return node;
     }
-    function addMessage(role, text) {
-      renderMessage(role, text);
-      messages.push({ role: role, text: text });
+    function addMessage(role, text, sources) {
+      renderMessage(role, text, sources);
+      messages.push({ role: role, text: text, sources: sources || [] });
       body.scrollTop = body.scrollHeight;
       if (role === "user") {
         playSendSound();
@@ -263,13 +324,15 @@
       hasSentFirstMessage = !!stored.hasSentFirstMessage;
       messages = stored.messages.slice();
       messages.forEach(function (m) {
-        renderMessage(m.role, m.text);
+        renderMessage(m.role, m.text, m.sources);
       });
       if (hasSentFirstMessage) {
         robotWaveEl.hidden = true;
         robotThinkEl.hidden = false;
       }
       if (stored.open) widget.setAttribute("data-open", "true");
+      if (stored.width) panel.style.width = stored.width;
+      if (stored.height) panel.style.height = stored.height;
       body.scrollTop = body.scrollHeight;
     }
     saveState();
@@ -290,7 +353,7 @@
         { class: "modi-msg modi-msg-bot modi-msg-typing" },
         '<span class="modi-typing-dot"></span><span class="modi-typing-dot"></span><span class="modi-typing-dot"></span>'
       );
-      body.insertBefore(typingEl, suggestions);
+      body.appendChild(typingEl);
       body.scrollTop = body.scrollHeight;
 
       fetch(API_URL, {
@@ -305,7 +368,8 @@
         .then(function (data) {
           typingEl.remove();
           var reply = data && typeof data.reply === "string" ? data.reply : ERROR_MESSAGE;
-          addMessage("bot", reply);
+          var sources = (data && Array.isArray(data.sources)) ? data.sources : [];
+          addMessage("bot", reply, sources);
         })
         .catch(function () {
           typingEl.remove();

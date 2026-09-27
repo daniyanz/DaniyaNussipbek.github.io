@@ -36,6 +36,7 @@ SYSTEM_PROMPT = SYSTEM_INSTRUCTIONS + "\n\n" + PORTFOLIO_CONTEXT
 
 # (keyword to search for in a reply, display label, page URL with anchor)
 SOURCES = [
+    ("MODI", "MODI - Daniya's AI Assistant", "projects.html#modi-ai-assistant"),
     ("J/P Snake", "J/P Snake Base Station", "projects.html#jp-snake-base-station"),
     ("Quality of Life", "R&D Intern at Quality of Life to the Nth Degree", "projects.html#quality-of-life-internship"),
     ("Fire Blight", "Fire Blight Detecting Robot", "projects.html#fire-blight-robot"),

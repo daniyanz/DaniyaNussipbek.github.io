@@ -2,8 +2,7 @@
   var SUGGESTIONS = [
     "What is Daniya's most recent project?",
     "What skills did Daniya gain from her recent project?",
-    "Has Daniya worked with ROS?",
-    "Can I schedule a meeting with her?"
+    "Has Daniya worked with ROS?"
   ];
 
   var WELCOME =
